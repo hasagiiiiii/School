@@ -1,0 +1,45 @@
+@import "../../../../App.scss";
+.feature {
+  width: 100%;
+  height: max-content;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 40px;
+  .custom-container {
+    width: 90%;
+    .row {
+      display: flex;
+      width: 100%;
+      flex-wrap: wrap;
+      gap: 20px;
+      .col-3 {
+        flex: 1 1 430px;
+        width: 450px;
+        background-color: $bg-white;
+        border-radius: 20px;
+        .box-items {
+          width: 100%;
+          padding: 40px;
+          .icons {
+            padding-bottom: 30px;
+          }
+          h2,
+          .content {
+            padding-bottom: 20px;
+          }
+          .content {
+            font-size: 15px;
+            opacity: 0.6;
+          }
+          a {
+            display: flex;
+            align-items: center;
+            &:hover {
+              color: $text-colorblack;
+            }
+          }
+        }
+      }
+    }
+  }
+}

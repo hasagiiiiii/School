@@ -1,0 +1,65 @@
+@import "../../../../App.scss";
+@import "../../../../scss/mixin.scss";
+.country {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: max-content;
+  padding-bottom: 100px;
+  background: #d1cfcf83;
+  .content-country {
+    padding: 40px 0;
+    h1.title {
+      font-size: 50px;
+      font-weight: 500;
+      text-align: center;
+    }
+    p.sub-title {
+      opacity: 0.6;
+    }
+  }
+  .list-country {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 90%;
+    gap: 20px;
+    .country-items {
+      flex: 1 1 150px;
+      max-width: 200px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 235px;
+      border-radius: 15px;
+      border: 1px solid rgba(0, 0, 0, 0.134);
+      transition: all 0.2s ease-in;
+      &:hover {
+        background-color: $bg-white;
+      }
+      h6.name {
+        font-size: 20px;
+        font-weight: 500;
+        padding-top: 10px;
+      }
+    }
+  }
+  button {
+    @include buttonHoverEffect($buttonColor_purple, $bg-white);
+    margin-top: 100px;
+  }
+  .mountan {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+  }
+  .plane {
+    position: absolute;
+    right: 100px;
+    bottom: 100px;
+  }
+}

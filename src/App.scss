@@ -1,0 +1,44 @@
+@import url("https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;700&display=swap");
+
+$buttonColor_purple: #764af1;
+$pink: #d63384;
+$info: #0dcaf0;
+$warning: #ffc107;
+$danger: #dc3545;
+$font-family: "Sora", sans-serif;
+$text-colorblack: #000;
+$bg-white: #fff;
+$text-span: #f32424;
+* {
+  text-decoration: none;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  font-family: $font-family;
+}
+p {
+  font-size: 16px;
+}
+
+.page-wapper {
+  background: url("./assets/background.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  background-position: top center;
+}
+
+html {
+  ::-webkit-scrollbar {
+    width: 5px;
+  }
+  ::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(120deg, $buttonColor_purple 0%, $pink 100%);
+    border-radius: 10px;
+    height: 10px;
+  }
+}
