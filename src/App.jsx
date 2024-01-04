@@ -5,17 +5,20 @@ import Home from "./pages/Home/Home";
 import "./App.scss";
 import ImgConTextProvider from "./Context/ImgConText";
 import ContryProvider from "./Context/ContryContext";
+import CategoriesProvider from "./Context/CategoriesContext";
 const App = () => {
   return (
     <div className="page-wapper">
       <BrowserRouter basename="">
         <ImgConTextProvider>
           <ContryProvider>
-            <Routes>
-              <Route path="/" element={<RootLayout />}>
-                <Route path="/" element={<Home />} />
-              </Route>
-            </Routes>
+            <CategoriesProvider>
+              <Routes>
+                <Route path="/" element={<RootLayout />}>
+                  <Route path="/" element={<Home />} />
+                </Route>
+              </Routes>
+            </CategoriesProvider>
           </ContryProvider>
         </ImgConTextProvider>
       </BrowserRouter>

@@ -17,7 +17,7 @@ const Country = () => {
         {CountryItem.map((item, index) => (
           <div key={index} className="country-items">
             <div className="thumnail">
-              <img width={130} src={item.img} alt="" />
+              <img src={item.img} alt="" />
             </div>
             <h6 className="name">{item.name}</h6>
           </div>

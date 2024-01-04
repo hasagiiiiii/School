@@ -4,6 +4,7 @@ import Feature from "./Component/Feature";
 import Feedback from "./Component/Feedback";
 import FeedbackModal from "../../Modals/FeedbackModal";
 import Country from "./Component/Country";
+import Category from "./Component/Categories/Category";
 
 const Home = () => {
   return (
@@ -13,6 +14,7 @@ const Home = () => {
       <Feedback />
       <FeedbackModal />
       <Country />
+      <Category />
     </div>
   );
 };
