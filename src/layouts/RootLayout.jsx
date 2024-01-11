@@ -1,11 +1,16 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
-
-import HeaderRootLayout from "../Component/Header/HeaderRootLayout";
+import HeadeerRootAffterLogin from "../Component/HeaderRootLayout/HeadeerRootAffterLogin";
+import HeaderRootLayout from "../Component/HeaderRootLayout/HeaderRootLayout";
 const RootLayout = () => {
+  const Loged = window.localStorage.getItem("acces");
+  const [isLogin, setIslogin] = React.useState(Loged);
+  React.useEffect(() => {
+    setIslogin(Loged);
+  }, [Loged]);
   return (
     <>
-      <HeaderRootLayout />
+      {isLogin ? <HeadeerRootAffterLogin /> : <HeaderRootLayout />}
       <Outlet />
     </>
   );

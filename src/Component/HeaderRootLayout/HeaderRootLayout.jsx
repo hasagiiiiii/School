@@ -1,13 +1,17 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import "./index.scss";
-import { RiArrowDropDownLine } from "react-icons/ri";
+import React from "react";
 import { IoIosSearch } from "react-icons/io";
 import { IoMenu } from "react-icons/io5";
+import { RiArrowDropDownLine } from "react-icons/ri";
+import { Link } from "react-router-dom";
+import { AppContext } from "../../Context/AppContext";
+import Overlay from "../OverLay";
+import "./index.scss";
 const HeaderRootLayout = () => {
   const [isActive, setIsActive] = React.useState(1);
   const [isDrop, setDrop] = React.useState(false);
-  const [toggle, setToggle] = useState(false);
+  const { isToggle, hanldeDisableScroll, setOpen } =
+    React.useContext(AppContext);
+
   return (
     <div className="wrap-header">
       <header>
@@ -84,19 +88,22 @@ const HeaderRootLayout = () => {
               <input type="text" placeholder="Tìm Kiếm" />
             </div>
           </div>
-          <button className="btn-common">Free Consultation</button>
+          <button onClick={() => setOpen(true)} className="btn-common">
+            Login
+          </button>
+          <button className="btn-common">Sign-Up</button>
         </div>
-        <button onClick={() => setToggle(true)} className="drop-downMenu">
+        <button onClick={hanldeDisableScroll} className="drop-downMenu">
           <IoMenu size={30} />
         </button>
       </header>
 
-      <ul className={toggle ? "navbar-menu-right toggle" : "navbar-menu-right"}>
-        <div
-          onClick={() => setToggle(false)}
-          style={toggle ? {} : { display: "none" }}
-          className="overLay"
-        ></div>
+      {/* Mobile */}
+      <ul
+        className={isToggle ? "navbar-menu-right toggle" : "navbar-menu-right"}
+      >
+        {isToggle && <Overlay />}
+
         <li>
           <Link
             className={isActive === 1 ? "active" : ""}

@@ -15,7 +15,7 @@ const FeedbackModal = () => {
   };
   return (
     <Modal
-      visible={isFeedbackVisible}
+      open={isFeedbackVisible}
       onCancel={onCancel}
       onOk={onCancel}
       footer={null}

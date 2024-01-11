@@ -9,6 +9,7 @@ $font-family: "Sora", sans-serif;
 $text-colorblack: #000;
 $bg-white: #fff;
 $text-span: #f32424;
+$pink: #faeaff;
 * {
   text-decoration: none;
   box-sizing: border-box;
@@ -19,14 +20,6 @@ $text-span: #f32424;
 }
 p {
   font-size: 16px;
-}
-
-.page-wapper {
-  background: url("./assets/background.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
-  position: relative;
-  background-position: top center;
 }
 
 html {

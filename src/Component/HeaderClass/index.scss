@@ -1,0 +1,149 @@
+@import "../../App.scss";
+@import "../../scss/mixin.scss";
+
+.wrapper-class {
+  header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 65px;
+    padding: 0px 25px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.351);
+    background: #fff;
+    z-index: 999;
+    .header-left {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      .menu-icons {
+        padding-right: 15px;
+        cursor: pointer;
+        &::before {
+          position: absolute;
+          content: "";
+          width: 35px;
+          height: 35px;
+          top: 13px;
+          left: 19px;
+          border-radius: 50%;
+          background-color: black;
+          transition: all 0.3s ease-in-out;
+          opacity: 0;
+        }
+        &:hover {
+          &::before {
+            opacity: 0.1;
+          }
+        }
+      }
+      .logo {
+        display: flex;
+        align-items: center;
+        &:hover {
+          a {
+            text-decoration: underline;
+            color: rgb(104, 157, 24);
+          }
+        }
+        a {
+          color: black;
+          font-size: 20px;
+          padding: 0 5px;
+        }
+      }
+    }
+    .header-right {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      .incre[toolip]:hover::after {
+        content: attr(toolip); /* Hiển thị nội dung của thuộc tính title */
+        position: absolute; /* Đặt vị trí tuyệt đối */
+        top: 100%; /* Hiển thị phía dưới */
+        left: 50%; /* Hiển thị giữa phía trái */
+        transform: translateX(
+          -50%
+        ); /* Dịch chuyển 50% chiều ngang để căn giữa */
+        background-color: #333; /* Màu nền đen */
+        color: #fff; /* Màu chữ trắng */
+        padding: 5px; /* Khoảng cách giữa nội dung và viền */
+        border-radius: 5px; /* Góc cong cho phần nền */
+        white-space: nowrap; /* Ngăn chặn quấn dòng */
+        font-size: 10px;
+      }
+      .incre {
+        font-size: 35px;
+        padding-right: 20px;
+        position: relative;
+        cursor: pointer;
+        &::before {
+          position: absolute;
+          content: "";
+          width: 35px;
+          height: 35px;
+          top: 5px;
+          right: 13px;
+          border-radius: 50%;
+          background-color: black;
+          transition: all 0.3s ease-in-out;
+          opacity: 0;
+        }
+        &:hover {
+          &::before {
+            opacity: 0.1;
+          }
+        }
+        &:active {
+          &::before {
+            background-color: black;
+            opacity: 0.3;
+            animation: active 1s ease-in-out both;
+          }
+        }
+        .action.active {
+          transform: scale(1);
+        }
+        .action {
+          position: absolute;
+          transform: scale(0);
+          width: 160px;
+          background-color: white;
+          border-radius: 5px;
+          box-shadow: 1px 2px 10px rgba(0, 0, 0, 0.452);
+          top: 30px;
+          left: -150px;
+          transition: all 0.3s ease-in-out;
+          transform-origin: top right;
+          overflow: hidden;
+          padding: 5px;
+          z-index: 9999;
+          p {
+            display: block;
+            font-size: 14px;
+            padding: 10px;
+            text-align: start;
+            &:hover {
+              background-color: rgba(0, 0, 0, 0.433);
+            }
+          }
+        }
+      }
+    }
+  }
+  @keyframes active {
+    0% {
+      background-color: black;
+      opacity: 0.3;
+    }
+    50% {
+      background-color: black;
+      opacity: 0.6;
+    }
+    100% {
+      background-color: black;
+      opacity: 0.3;
+    }
+  }
+}
