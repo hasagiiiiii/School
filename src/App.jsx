@@ -5,21 +5,38 @@ import Home from "./pages/Home/Home";
 import "./App.scss";
 import ImgConTextProvider from "./Context/ImgConText";
 import ContryProvider from "./Context/ContryContext";
+import CategoriesProvider from "./Context/CategoriesContext";
+import AppProvider from "./Context/AppContext";
+import Class from "./pages/Class/Class";
+import ClassRoomListProvider from "./Context/ClassRoomListContext";
+import Table from "./pages/Class/Component/TableClass";
+import LoginModal from "./Modals/LoginModal";
+import AddClassModal from "./Modals/AddClassModal";
 const App = () => {
   return (
-    <div className="page-wapper">
-      <BrowserRouter basename="">
+    <BrowserRouter basename="">
+      <AppProvider>
         <ImgConTextProvider>
           <ContryProvider>
-            <Routes>
-              <Route path="/" element={<RootLayout />}>
-                <Route path="/" element={<Home />} />
-              </Route>
-            </Routes>
+            <CategoriesProvider>
+              <ClassRoomListProvider>
+                <Routes>
+                  <Route path="/" element={<RootLayout />}>
+                    <Route index element={<Home />} />
+                  </Route>
+                  <Route path="/Class" element={<Class />}>
+                    <Route index element={<Table />} />
+                  </Route>
+                </Routes>
+                <LoginModal />
+                <AddClassModal />
+              </ClassRoomListProvider>
+            </CategoriesProvider>
           </ContryProvider>
         </ImgConTextProvider>
-      </BrowserRouter>
-    </div>
+      </AppProvider>
+      {/* Class */}
+    </BrowserRouter>
   );
 };
 

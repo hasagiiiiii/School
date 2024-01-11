@@ -13,7 +13,7 @@
     align-items: center;
     width: 90%;
     height: 75px;
-
+    z-index: 999;
     #logo {
       font-size: 25px;
       color: $buttonColor_purple;
@@ -27,7 +27,6 @@
       li {
         padding: 0px 20px;
         position: relative;
-        width: max-content;
         &:hover {
           .sub-menu {
             opacity: 1;
@@ -57,7 +56,8 @@
         }
 
         a {
-          width: 1000px;
+          display: flex;
+          align-items: center;
           font-size: 16px;
           font-weight: 500;
           font-family: $font-family;
@@ -119,14 +119,6 @@
     left: -500px;
     transition: all 1s ease-in-out;
     z-index: 999;
-    .overLay {
-      position: absolute;
-      width: 100vw;
-      height: 100vh;
-      background-color: rgba(0, 0, 0, 0.53);
-      transition: all 2s ease-in-out;
-      z-index: -1;
-    }
     li {
       width: 100%;
       height: 40px;

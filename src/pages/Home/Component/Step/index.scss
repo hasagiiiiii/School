@@ -1,0 +1,92 @@
+@import "../../../../App.scss";
+.step {
+  background-color: $pink;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .wrap-step {
+    width: 90%;
+    padding: 120px 0px;
+    text-align: center;
+    .sub-title {
+      color: $buttonColor_purple;
+      font-size: 16px;
+      font-weight: 600;
+      padding-bottom: 30px;
+    }
+    h4 {
+      font-size: 40px;
+      font-weight: 600;
+      padding-bottom: 80px;
+    }
+    .ul-step-custom {
+      display: flex;
+      justify-content: space-around;
+      // flex-wrap: wrap;
+      li.item-step {
+        position: relative;
+        width: 20%;
+        &:not(:last-child) {
+          &::after {
+            position: absolute;
+            content: "";
+            top: 55px;
+            right: -215px;
+            width: 100%;
+            height: 30px;
+            background-image: url("../../../../assets/Step/arrow.png");
+            background-repeat: no-repeat;
+            // background-position: -30px;
+          }
+        }
+        .thumnail {
+          margin: 0 auto;
+          width: 130px;
+          height: 130px;
+          background-color: $bg-white;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        h6.name {
+          padding-top: 20px;
+          font-size: 20px;
+          font-weight: 300;
+          line-height: 1.5;
+        }
+      }
+    }
+  }
+  @media (max-width: 1199px) {
+    display: none;
+  }
+  @media (max-width: 1300px) {
+    .wrap-step {
+      .ul-step-custom {
+        li.item-step {
+          &:not(:last-child) {
+            &::after {
+              position: absolute;
+              content: "";
+              top: 40px;
+              right: -125px;
+              width: 80%;
+              height: 30px;
+              background-image: url("../../../../assets/Step/arrow.png");
+              background-repeat: no-repeat;
+              background-position: -30px;
+            }
+          }
+          .thumnail {
+            width: 100px;
+            height: 100px;
+          }
+        }
+      }
+    }
+  }
+}

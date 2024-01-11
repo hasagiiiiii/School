@@ -13,13 +13,13 @@
       flex-wrap: wrap;
       gap: 20px;
       .col-3 {
-        flex: 1 1 430px;
+        flex: 1 1 340px;
         width: 450px;
         background-color: $bg-white;
         border-radius: 20px;
         .box-items {
           width: 100%;
-          padding: 40px;
+          padding: 40px 10px;
           .icons {
             padding-bottom: 30px;
           }

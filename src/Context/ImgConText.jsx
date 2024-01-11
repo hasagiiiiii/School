@@ -39,18 +39,21 @@ const ImgConTextProvider = ({ children }) => {
   const FeedbackVideo = [
     {
       imgF: User,
+      country: "Việt Nam",
       displayName: "Văn Trung",
       school: "Nguyễn Trãi",
       video: "https://www.youtube.com/embed/QSUrgXh7wp4?si=YSr9NNGj6F1Sg4-G",
     },
     {
       imgF: User,
+      country: "Việt Nam",
       displayName: "Văn Trung",
       school: "Nguyễn Trãi",
       video: "https://www.youtube.com/embed/QSUrgXh7wp4?si=YSr9NNGj6F1Sg4-G",
     },
     {
       imgF: User1,
+      country: "Việt Nam",
       displayName: "Thanh Tùng",
       school: "Nguyễn Trãi",
       video:
@@ -58,6 +61,7 @@ const ImgConTextProvider = ({ children }) => {
     },
     {
       imgF: User2,
+      country: "Việt Nam",
       displayName: "Việt Hoàng",
       school: "Nguyễn Trãi",
       video: "https://www.youtube.com/embed/QSUrgXh7wp4?si=YSr9NNGj6F1Sg4-G",

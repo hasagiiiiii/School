@@ -35,7 +35,7 @@
         border-radius: 15px;
         overflow: hidden;
         position: relative;
-        height: 450px;
+        height: max-content;
         transition: all 10s ease-in;
         &::before {
           content: "";
@@ -85,6 +85,11 @@
           &:active {
             transform: scale(0.7);
           }
+        }
+        .content-feedback {
+          position: absolute;
+          bottom: -45px;
+          color: $bg-white;
         }
       }
     }

@@ -3,10 +3,12 @@ import { FaPlay } from "react-icons/fa";
 import { ImgContext } from "../../../../Context/ImgConText";
 import "./index.scss";
 const Feedback = () => {
-  const { FeedbackVideo, setFeedbackVisible } = React.useContext(ImgContext);
+  const { FeedbackVideo, setFeedbackVisible, setURLFeedback } =
+    React.useContext(ImgContext);
 
   const btnPlay = (url) => {
     setFeedbackVisible(true);
+    setURLFeedback(url);
   };
   return (
     <div className="feedback">
@@ -24,7 +26,10 @@ const Feedback = () => {
               <button onClick={() => btnPlay(feedback.video)}>
                 <FaPlay size={20} />
               </button>
-              <p className="content-feedback">{`${feedback.displayName}~ ${feedback.school}`}</p>
+              <p className="content-feedback">
+                <span>{feedback.displayName}</span>
+                {`${feedback.country}~ ${feedback.school}`}
+              </p>
             </div>
           ))}
         </div>
