@@ -6,15 +6,12 @@ import { Link } from "react-router-dom";
 import { AppContext } from "../../Context/AppContext";
 import Overlay from "../OverLay";
 import "./index.scss";
+import { AuthContext } from "../../Context/AuthProvider";
 const HeadeerRootAffterLogin = () => {
   const [isActive, setIsActive] = React.useState(1);
   const [isDrop, setDrop] = React.useState(false);
   const { isToggle, hanldeDisableScroll } = React.useContext(AppContext);
-
-  const Logout = () => {
-    localStorage.removeItem("acces");
-    window.location.reload();
-  };
+  const { Logout } = React.useContext(AuthContext);
 
   return (
     <div className="wrap-header">

@@ -1,12 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
 import LoginReducer from "./LoginReducer";
-import ClassReducer from "./ClassReducer";
+import ClassReducer from "./StudentReducer/ClassReducer";
 import FilterClassReducer from "../pages/Class/Component/TableClass/FilterClassReducer";
+import FilterSearchStudent from "./SchoolReducer/FilterSearchStudent";
 
 export const store = configureStore({
   reducer: {
     LoginReducer: LoginReducer.reducer,
     ClassReducer: ClassReducer.reducer,
     FilterClassREducer: FilterClassReducer.reducer,
+    FilterSearchStudent: FilterSearchStudent.reducer,
   },
 });

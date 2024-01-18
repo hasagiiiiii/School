@@ -11,7 +11,7 @@ const HeaderCLass = () => {
   const handleOpenLogin = () => {
     setActive(false);
   };
-  const username = JSON.parse(localStorage.getItem("acces")).info.user_Name;
+  const username = JSON.parse(localStorage.getItem("acces"))?.info.user_Name;
   return (
     <header className="sticky top-0">
       <div className="header-left ">
@@ -37,7 +37,7 @@ const HeaderCLass = () => {
           </div>
         </div>
         <Avatar style={{ background: "blue" }}>
-          {username.charAt(0).toUpperCase()}
+          {username?.charAt(0).toUpperCase()}
         </Avatar>
       </div>
     </header>

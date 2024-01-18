@@ -23,7 +23,7 @@ const Banner = () => {
         </div>
         <div className="col-xl-7 banner">
           {imgBanner.map((item, index) => (
-            <img key={index} src={item} alt="" />
+            <img loading="lazy" key={index} src={item} alt="" />
           ))}
         </div>
       </div>

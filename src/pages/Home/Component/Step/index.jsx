@@ -14,7 +14,7 @@ const Step = () => {
         <div className="ul-step-custom">
           <li className="item-step">
             <div className="thumnail">
-              <img src={Step1} alt=""></img>
+              <img loading="lazy" src={Step1} alt=""></img>
             </div>
             <h6 className="name">
               Identify course <br /> country & collage

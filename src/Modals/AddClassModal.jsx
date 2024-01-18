@@ -2,27 +2,10 @@ import { Button, Form, Input, Modal, Select } from "antd";
 import React from "react";
 import { AppContext } from "../Context/AppContext";
 import { useDispatch } from "react-redux";
-import ClassReducer from "../redux/ClassReducer";
-
-const option = [
-  { value: "Do Van Trung", label: "DO Van Trung" },
-  { value: "Thanh Tung", label: "Thanh Tung" },
-  {
-    value: "jack",
-    label: "Jack",
-  },
-  {
-    value: "lucy",
-    label: "Lucy",
-  },
-  {
-    value: "tom",
-    label: "Tom",
-  },
-];
+import ClassReducer from "../redux/StudentReducer/ClassReducer";
 
 const AddClassModal = () => {
-  const { isOpenFormAddClass, setIsOpenFormAddCLass } =
+  const { isOpenFormAddClass, teachers, khoa, setIsOpenFormAddCLass } =
     React.useContext(AppContext);
   const dispatch = useDispatch();
   const [form] = Form.useForm();
@@ -34,7 +17,6 @@ const AddClassModal = () => {
     form.resetFields();
     setIsOpenFormAddCLass(false);
   };
-
   return (
     <Modal
       title="Login"
@@ -54,9 +36,18 @@ const AddClassModal = () => {
         <Form.Item
           rules={[{ required: true, message: "please input your Class Name" }]}
           label="ClassName"
-          name="name_ClassSchool"
+          name="name_Khoa"
         >
-          <Input placeholder="Class Name" />
+          <Select
+            showSearch
+            mode="tags"
+            optionFilterProp="name_Khoa"
+            placeholder="Choose Teacher"
+            options={khoa.map((item) => ({
+              value: item.name_Khoa,
+              label: item.name_Khoa,
+            }))}
+          />
         </Form.Item>
         <Form.Item
           rules={[{ required: true, message: "please input your Class Name" }]}
@@ -65,10 +56,13 @@ const AddClassModal = () => {
         >
           <Select
             showSearch
-            mode="multiple"
-            optionFilterProp="label"
+            mode="tags"
+            optionFilterProp="user_Name"
             placeholder="Choose Teacher"
-            options={option}
+            options={teachers.map((item) => ({
+              value: item.user_Name,
+              label: item.user_Name,
+            }))}
           />
         </Form.Item>
         <Form.Item>

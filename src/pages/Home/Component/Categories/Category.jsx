@@ -43,7 +43,7 @@ const Category = () => {
           {listCategory.map((category, index) => (
             <div key={index} className="box-items">
               <div className="thumnail">
-                <img src={category.img} alt="" />
+                <img loading="lazy" src={category.img} alt="" />
               </div>
               <div className="name">
                 <p>{category.name}</p>

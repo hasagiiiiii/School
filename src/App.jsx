@@ -12,29 +12,39 @@ import ClassRoomListProvider from "./Context/ClassRoomListContext";
 import Table from "./pages/Class/Component/TableClass";
 import LoginModal from "./Modals/LoginModal";
 import AddClassModal from "./Modals/AddClassModal";
+import AuthProvider from "./Context/AuthProvider";
+import ContentDepartment from "./pages/Department/ContentDepartment";
+import Department from "./pages/Department/Department";
 const App = () => {
   return (
     <BrowserRouter basename="">
-      <AppProvider>
-        <ImgConTextProvider>
-          <ContryProvider>
-            <CategoriesProvider>
-              <ClassRoomListProvider>
-                <Routes>
-                  <Route path="/" element={<RootLayout />}>
-                    <Route index element={<Home />} />
-                  </Route>
-                  <Route path="/Class" element={<Class />}>
-                    <Route index element={<Table />} />
-                  </Route>
-                </Routes>
-                <LoginModal />
-                <AddClassModal />
-              </ClassRoomListProvider>
-            </CategoriesProvider>
-          </ContryProvider>
-        </ImgConTextProvider>
-      </AppProvider>
+      <AuthProvider>
+        <AppProvider>
+          <ImgConTextProvider>
+            <ContryProvider>
+              <CategoriesProvider>
+                <ClassRoomListProvider>
+                  <Routes>
+                    <Route path="/" element={<RootLayout />}>
+                      <Route index element={<Home />} />
+                    </Route>
+
+                    <Route path="/Class" element={<Class />}>
+                      <Route index element={<Table />} />
+                    </Route>
+
+                    <Route path="/Department" element={<Department />}>
+                      <Route index element={<ContentDepartment />} />
+                    </Route>
+                  </Routes>
+                  <LoginModal />
+                  <AddClassModal />
+                </ClassRoomListProvider>
+              </CategoriesProvider>
+            </ContryProvider>
+          </ImgConTextProvider>
+        </AppProvider>
+      </AuthProvider>
       {/* Class */}
     </BrowserRouter>
   );
