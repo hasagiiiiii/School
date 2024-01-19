@@ -22,7 +22,7 @@ const Feedback = () => {
         <div className="row">
           {FeedbackVideo.map((feedback, index) => (
             <div key={index} className="box-videos">
-              <img src={feedback.imgF} alt="" />
+              <img loading="lazy" src={feedback.imgF} alt="" />
               <button onClick={() => btnPlay(feedback.video)}>
                 <FaPlay size={20} />
               </button>

@@ -7,6 +7,7 @@ export default createSlice({
   },
   reducers: {
     login: (state, action) => {
+      // update data save infor user
       state.data = action.payload;
     },
   },

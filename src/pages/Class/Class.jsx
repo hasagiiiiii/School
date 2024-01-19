@@ -1,10 +1,24 @@
-import React from "react";
-import HeaderCLass from "../../Component/HeaderClass";
 import { Col, Row } from "antd";
-import SideBar from "./Component/SideBar";
+import React from "react";
 import { Outlet } from "react-router-dom";
+import HeaderCLass from "../../Component/HeaderClass";
+import { AuthContext } from "../../Context/AuthProvider";
+import SideBar from "./Component/SideBar";
 
 const Class = () => {
+  const { isLogin } = React.useContext(AuthContext); // Check User Login
+  // useEffect(() => {
+  //   CheckRedirect();
+  // }, [CheckRedirect]);
+
+  if (JSON.parse(localStorage.getItem("acces")).info.role) {
+    // check xem ROLE của user có đủ thầm quyền hay không
+    return console.error("Khoong có quyền truy cập");
+  }
+
+  if (!isLogin) {
+    return "NotFound";
+  }
   return (
     <div className="wrapper-class">
       <HeaderCLass />

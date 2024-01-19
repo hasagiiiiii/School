@@ -1,0 +1,25 @@
+@import "../../../App.scss";
+@import "../../../scss/mixin.scss";
+
+.ant-collapse-header {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  padding: 0px;
+  border-radius: 10px !important;
+  &:hover {
+    background-color: rgba(128, 128, 128, 0.264);
+  }
+  .ant-collapse-header-text p {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+}
+.ant-collapse .ant-collapse-content > .ant-collapse-content-box {
+  padding: 0;
+  padding-block: 0 !important;
+}
+.ant-typography {
+  color: black !important;
+}
