@@ -1,10 +1,13 @@
-import React, { useEffect } from "react";
 import { Button, Table } from "antd";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { debounce } from "lodash";
+import React from "react";
 import { IoSearch } from "react-icons/io5";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import FilterSearchStudent from "../../../redux/SchoolReducer/FilterSearchStudent";
+import ListStudentReducer from "../../../redux/SchoolReducer/ListStudentReducer";
+import { StudentsFilter } from "../../../redux/selector";
+import { IoMdAdd } from "react-icons/io";
+
 const columns = [
   { title: "MSV", dataIndex: "msv", key: "msv" },
   { title: "FullName", dataIndex: "fullName", key: "fullName" },
@@ -29,11 +32,11 @@ const columns = [
 const ContentDepartment = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [students, setStudent] = React.useState([]);
+  const listStudent = useSelector(StudentsFilter);
   const [valueInput, setValueInput] = React.useState("");
   const [selectedRowKeys, setSelectedRowKeys] = React.useState([]);
   const [loading, setLoading] = React.useState(false);
-  // start fetch API
+  // start fetch API Get All Student
   React.useEffect(() => {
     const token = localStorage.getItem("acces");
     try {
@@ -44,36 +47,21 @@ const ContentDepartment = () => {
         },
       })
         .then((res) => res.json())
-        .then((data) => setStudent(data))
+        .then((data) => dispatch(ListStudentReducer.actions.addStudents(data)))
         .catch((err) => console.log(err));
     } catch (err) {
       console.log(err);
     }
-    if (valueInput === null) {
-      setStudent(students);
-    }
-  }, [navigate, valueInput]);
+  }, [navigate]);
   // finish fetch API
+
   // handle onChangeInput
   const handleOnchangeInput = (value) => {
+    dispatch(FilterSearchStudent.actions.filterSearchName(value));
     setValueInput(value);
-
-    // // debounce trả về một hàm mới, nên bạn cần gọi nó để sử dụng
-    // const debouncedDispatch = debounce(() => {
-    //   dispatch(FilterSearchStudent.actions.filterSearchName(value));
-    // }, 1000);
-
-    // // Gọi hàm debouncedDispatch để xử lý sự kiện debounce
-    // debouncedDispatch();
-    const StudentCopy = [...students];
-    const FilterSearch = StudentCopy.filter((student) =>
-      student.msv.includes(valueInput)
-    );
-    setStudent(FilterSearch);
   };
 
   //
-
   const start = () => {
     setLoading(true);
     // ajax request after empty completing
@@ -106,8 +94,13 @@ const ContentDepartment = () => {
             value={valueInput}
           />
         </div>
+        <div>
+          <div className="icons ml-auto cursor-pointer">
+            <IoMdAdd size={30} />
+          </div>
+        </div>
       </div>
-      <div className="w-[90%] mx-auto bg-white">
+      <div className="w-[90%] mx-auto bg-white rounded-md shadow-lg">
         <Button
           type="primary"
           onClick={start}
@@ -126,7 +119,7 @@ const ContentDepartment = () => {
         </span>
         <Table
           rowSelection={rowSelection}
-          dataSource={students.map((student, index) => ({
+          dataSource={listStudent?.map((student, index) => ({
             ...student,
             key: index,
           }))}
@@ -138,3 +131,24 @@ const ContentDepartment = () => {
 };
 
 export default ContentDepartment;
+
+// const classs = {
+//   nameCLass:"",
+//   teacher:"",
+//   listStudent :[
+//     {sv1},{sv2}
+//   ]
+// }
+
+// listTeacher= [
+//   {t1},{t2},{t3}
+// ]
+
+// const classMonHoc = {
+//   nameCLass:"",
+//   teacher:{},
+//   monhoc:"",
+//   listStudent :[
+//     {sv1},{sv2}
+//   ]
+// }
