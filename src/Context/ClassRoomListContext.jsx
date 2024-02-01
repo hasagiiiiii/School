@@ -1,9 +1,7 @@
 import React from "react";
 import { Tag } from "antd";
-import { useDispatch } from "react-redux";
 export const ClassRoomListContext = React.createContext();
 const ClassRoomListProvider = ({ children }) => {
-  const dispatch = useDispatch();
   const columns = [
     { title: "NameClass", dataIndex: "NameClass", key: "NameClass" },
     { title: "Teacher", dataIndex: "Teacher", key: "Teacher" },

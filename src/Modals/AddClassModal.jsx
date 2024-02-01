@@ -1,18 +1,17 @@
 import { Button, Form, Input, Modal, Select } from "antd";
 import React from "react";
 import { AppContext } from "../Context/AppContext";
-import { useDispatch } from "react-redux";
-import ClassReducer from "../redux/StudentReducer/ClassReducer";
 
 const AddClassModal = () => {
   const { isOpenFormAddClass, teachers, khoa, setIsOpenFormAddCLass } =
     React.useContext(AppContext);
-  const dispatch = useDispatch();
   const [form] = Form.useForm();
   const onFinish = () => {
     const FormValue = form.getFieldValue();
-    dispatch(ClassReducer.actions.addClass({ ...FormValue, listMonHoc: [] }));
+    // dispatch(ClassReducer.actions.addClass({ ...FormValue, listMonHoc: [] }));
+    console.log(FormValue);
   };
+  console.log(teachers);
   const handleCancel = () => {
     form.resetFields();
     setIsOpenFormAddCLass(false);
@@ -44,7 +43,7 @@ const AddClassModal = () => {
             optionFilterProp="name_Khoa"
             placeholder="Choose Teacher"
             options={khoa.map((item) => ({
-              value: item.name_Khoa,
+              value: item.ma_Khoa,
               label: item.name_Khoa,
             }))}
           />

@@ -1,9 +1,8 @@
 import { Alert, Button, Table as Tb } from "antd";
 import React from "react";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import { ListSubject } from "../../../../redux/selector";
 import { ClassRoomListContext } from "../../../../Context/ClassRoomListContext";
+import { ListSubject } from "../../../../redux/selector";
 
 // const columns = [
 //   {
@@ -75,6 +74,7 @@ const Table = () => {
     selectedRowKeys,
     onChange: onSelectChange,
   };
+
   const hasSelected = selectedRowKeys.length > 0;
   return (
     <div>
@@ -101,7 +101,14 @@ const Table = () => {
               {hasSelected ? `Selected ${selectedRowKeys.length} items` : ""}
             </span>
           </div>
-          <Tb rowSelection={rowSelection} columns={columns} dataSource={data} />
+          <Tb
+            rowSelection={rowSelection}
+            columns={columns}
+            dataSource={data?.map((item, index) => ({
+              ...item,
+              key: index,
+            }))}
+          />
         </div>
       ) : (
         <Alert message="Hãy chọn một lớp" type="info" closable />

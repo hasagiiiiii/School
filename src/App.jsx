@@ -37,8 +37,11 @@ const App = () => {
                       <Route index element={<ContentDepartment />} />
                     </Route>
                   </Routes>
+
+                  {/*  Start Modal */}
                   <LoginModal />
                   <AddClassModal />
+                  {/* Finish Modal */}
                 </ClassRoomListProvider>
               </CategoriesProvider>
             </ContryProvider>

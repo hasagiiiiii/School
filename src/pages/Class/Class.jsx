@@ -11,10 +11,12 @@ const Class = () => {
   //   CheckRedirect();
   // }, [CheckRedirect]);
 
-  if (JSON.parse(localStorage.getItem("acces")).info.role) {
-    // check xem ROLE của user có đủ thầm quyền hay không
-    return console.error("Khoong có quyền truy cập");
-  }
+  // if (
+  //   !JSON.parse(localStorage.getItem("acces")).info.role_School === "student"
+  // ) {
+  //   // check xem ROLE của user có đủ thầm quyền hay không
+  //   return console.error("Khoong có quyền truy cập");
+  // }
 
   if (!isLogin) {
     return "NotFound";
