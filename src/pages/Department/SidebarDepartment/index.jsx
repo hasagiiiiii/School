@@ -5,7 +5,7 @@ import "./index.scss";
 import { Link, useNavigate } from "react-router-dom";
 const SidebarDeparment = () => {
   return (
-    <div className="fixed flex w-64 flex-col h-full justify-start border border-solid border-r-slate-200">
+    <div className="fixed flex w-64 flex-col h-full justify-start border border-solid bg-white border-r-slate-200 z-50">
       <div className="text-2xl pt-10 text-purple-600">
         <Link to="" className="w-full pl-5">
           Logo

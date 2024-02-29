@@ -1,14 +1,35 @@
 import React from "react";
+import { FETCH_API } from "../api/fetchAPI";
 export const AppContext = React.createContext();
 const AppProvider = ({ children }) => {
   const [isToggle, setIstoggle] = React.useState(false);
   const [open, setOpen] = React.useState(false);
   const [isOpenFormAddClass, setIsOpenFormAddCLass] = React.useState(false); // open and close Modal AddClassModal
-  const [isOpenSubjectClass, setIsOpenSubjectClass] = React.useState(false);
   const [teachers, setTeacher] = React.useState([]); // GET Data is Fetch Api Teacher
   const [khoa, setKhoa] = React.useState([]); // GET Data is Fetch Api Khoa
   const [listClass, setListClass] = React.useState([1]); // GET Data is Fetch Api ALL Class
-  const token = localStorage.getItem("acces");
+  const columns = [
+    { title: "MSV", dataIndex: "msv", key: "msv" },
+    { title: "FullName", dataIndex: "fullName", key: "fullName" },
+    { title: "Email", dataIndex: "email_User", key: "email_User" },
+    { title: "Sex", dataIndex: "sex_User", key: "sex_User" },
+    {
+      title: "Image",
+      dataIndex: "image_User",
+      key: "image_User",
+      render: (imgUser, index) => (
+        <img
+          key={index}
+          src={`${process.env.REACT_APP_URL_SEVER}/${imgUser}`}
+          alt={imgUser}
+          width={30}
+          loading="lazy"
+        />
+      ),
+    },
+  ];
+
+  const TOKEN = localStorage.getItem("acces")
   // Start handleDisableScroll
   const hanldeDisableScroll = () => {
     setIstoggle(!isToggle);
@@ -27,51 +48,15 @@ const AppProvider = ({ children }) => {
     setIstoggle(false);
     window.onscroll = () => {};
   };
-
-  const fetchApiV1GET = async (type, action) => {
-    try {
-      const response = await fetch(
-        `http://trendyt20231-001-site1.ftempurl.com/api/v1/${type}`,
-        {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${JSON.parse(token).access_Token}`,
-          },
-        }
-      );
-      const data = await response.json();
-      action(data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-  const fetchApiV2GET = async (type, action) => {
-    try {
-      const response = await fetch(
-        `${process.env.REACT_APP_URL_SEVER_V2}${type}`,
-        {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${JSON.parse(token).access_Token}`,
-          },
-        }
-      );
-      const data = await response.json();
-      action(data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-  // Fetch API teacher
+  {/* <---------------------/START FECTH_API\----------------------------> */}
   React.useEffect(() => {
-    // fetchApiV2GET("school/get-all-teacher", setTeacher); // GET ALL TEACHER {error : NOT FOUND 404}
-
-    fetchApiV1GET("khoa", setKhoa);
-
-    fetchApiV2GET("class", setListClass); // GET ALL CLASS
+    if(TOKEN!==null){
+      FETCH_API.fetchAPIV1GET_Authoriez("school/teacher", setTeacher,TOKEN); // GET ALL TEACHER {error : NOT FOUND 404}
+       FETCH_API.fetchAPIV1GET_Authoriez("school/khoa",setKhoa,TOKEN)
+    }
+    // FETCH_API.fetchApiV1GET("class", setListClass); // GET ALL CLASS
     return () => {};
-  }, []);
-  // console.log(listClass);
+  }, [TOKEN]);
   return (
     <AppContext.Provider
       value={{
@@ -86,8 +71,7 @@ const AppProvider = ({ children }) => {
         teachers,
         khoa,
         listClass,
-        isOpenSubjectClass,
-        setIsOpenSubjectClass,
+        columns,
       }}
     >
       {children}

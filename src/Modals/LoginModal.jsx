@@ -13,7 +13,7 @@ const LoginModal = () => {
 
   const handleLogin = async () => {
     try {
-      await fetch("http://trendyt20231-001-site1.ftempurl.com/api/v1/login", {
+      await fetch(`${process.env.REACT_APP_URL_SEVER}/api/v1/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
