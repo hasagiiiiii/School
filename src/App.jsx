@@ -17,6 +17,7 @@ import ContentDepartment from "./pages/Department/ContentDepartment";
 import Department from "./pages/Department/Department";
 import { ActiveModalProvider } from "./Context/ActiveModal";
 import AddSubjectModal from "./Modals/AddSubjectModal";
+import { Schedule } from "./pages/Class/Component/Schedule";
 const App = () => {
   return (
     <BrowserRouter basename="">
@@ -34,6 +35,7 @@ const App = () => {
 
                     <Route path="/Class" element={<Class />}>
                       <Route index element={<Table />} />
+                      <Route path="/Class/Schedule" element={<Schedule/>} />
                     </Route>
 
                     <Route path="/Department" element={<Department />}>

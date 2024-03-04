@@ -28,7 +28,7 @@ const AddSubjectModal = () => {
           name="Ten_Lop"
           label={<p className="w-32 text-left">Tên Lớp</p>}
         >
-          <Input variant="filled"    style={{width:"90%"}} placeholder="Nhập Tên Lớp" />
+          <Input variant="filled" style={{width:"90%"}} placeholder="Nhập Tên Lớp" />
         </Form.Item>
         <Form.Item
           name="teacher"
