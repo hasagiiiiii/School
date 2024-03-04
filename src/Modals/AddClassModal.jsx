@@ -9,30 +9,29 @@ const AddClassModal = () => {
   const onFinish = () => {
     const FormValue = form.getFieldValue();
     // dispatch(ClassReducer.actions.addClass({ ...FormValue, listMonHoc: [] }));
-    console.log(FormValue);
   };
-  console.log(teachers);
   const handleCancel = () => {
     form.resetFields();
     setIsOpenFormAddCLass(false);
   };
+  
   return (
     <Modal
       title="Login"
       onCancel={handleCancel}
       open={isOpenFormAddClass}
       footer={null}
-      width={500}
+      width={1000}
     >
       <Form form={form} onFinish={onFinish}>
         <Form.Item
           rules={[{ required: true, message: "please input your Class Name" }]}
-          label="ClassName"
+          label={<p className="w-24 text-left">ClassName</p>}
           name="name_ClassSchool"
         >
-          <Input placeholder="Class Name" />
+          <Input placeholder="Class Name" variant="filled" />
         </Form.Item>
-        <Form.Item
+        {/* <Form.Item
           rules={[{ required: true, message: "please input your Class Name" }]}
           label="ClassName"
           name="name_Khoa"
@@ -47,10 +46,10 @@ const AddClassModal = () => {
               label: item.name_Khoa,
             }))}
           />
-        </Form.Item>
+        </Form.Item> */}
         <Form.Item
-          rules={[{ required: true, message: "please input your Class Name" }]}
-          label="Teacher"
+          rules={[{ required: true, message: "Please choose your Teacher Name" }]}
+          label={<p className="w-24 text-left">Teacher</p>}
           name="teacher"
         >
           <Select
@@ -58,15 +57,15 @@ const AddClassModal = () => {
             mode="tags"
             optionFilterProp="user_Name"
             placeholder="Choose Teacher"
-            options={teachers.map((item) => ({
-              value: item.user_Name,
-              label: item.user_Name,
+            options={teachers?.map((item) => ({
+              value: item?.user_Name,
+              label: item?.user_Name,
             }))}
           />
         </Form.Item>
         <Form.Item>
           <Button htmlType="submit" className="w-32">
-            Login
+            ADD
           </Button>
         </Form.Item>
       </Form>

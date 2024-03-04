@@ -18,9 +18,9 @@ const Class = () => {
   //   return console.error("Khoong có quyền truy cập");
   // }
 
-  if (!isLogin) {
-    return "NotFound";
-  }
+  // if (!isLogin) {
+  //   return "NotFound";
+  // }
   return (
     <div className="wrapper-class">
       <HeaderCLass />

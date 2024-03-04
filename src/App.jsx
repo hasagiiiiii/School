@@ -15,6 +15,9 @@ import AddClassModal from "./Modals/AddClassModal";
 import AuthProvider from "./Context/AuthProvider";
 import ContentDepartment from "./pages/Department/ContentDepartment";
 import Department from "./pages/Department/Department";
+import { ActiveModalProvider } from "./Context/ActiveModal";
+import AddSubjectModal from "./Modals/AddSubjectModal";
+import { Schedule } from "./pages/Class/Component/Schedule";
 const App = () => {
   return (
     <BrowserRouter basename="">
@@ -24,6 +27,7 @@ const App = () => {
             <ContryProvider>
               <CategoriesProvider>
                 <ClassRoomListProvider>
+                  <ActiveModalProvider>
                   <Routes>
                     <Route path="/" element={<RootLayout />}>
                       <Route index element={<Home />} />
@@ -31,6 +35,7 @@ const App = () => {
 
                     <Route path="/Class" element={<Class />}>
                       <Route index element={<Table />} />
+                      <Route path="/Class/Schedule" element={<Schedule/>} />
                     </Route>
 
                     <Route path="/Department" element={<Department />}>
@@ -41,7 +46,9 @@ const App = () => {
                   {/*  Start Modal */}
                   <LoginModal />
                   <AddClassModal />
+                  <AddSubjectModal/>
                   {/* Finish Modal */}
+                  </ActiveModalProvider>
                 </ClassRoomListProvider>
               </CategoriesProvider>
             </ContryProvider>

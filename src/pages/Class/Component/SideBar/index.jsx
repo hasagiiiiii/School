@@ -17,17 +17,17 @@ const SideBar = () => {
     dispatch(FilterClassReducer.actions.fillterValue(value));
   };
   return (
-    <div className="fixed flex flex-col h-full justify-start border border-solid border-r-slate-200">
+    <div className="fixed w-64 flex flex-col h-full justify-start border border-solid border-r-slate-200">
       <div className="w-full ">
         <Link
           className="pl-9 py-4 w-[100%] flex justify-start text-[16px] gap-3 rounded-r-3xl hover:bg-slate-200 ease-in-out duration-200 active:bg-slate-300  "
-          to="/Class/Home"
+          to="/Class"
         >
           <IoMdHome size={20} /> <p>Màn Hình Chính</p>
         </Link>
         <Link
           className="pl-9 py-4 w-[100%] flex justify-start text-[16px] gap-3 rounded-r-3xl hover:bg-slate-200 ease-in-out duration-200 active:bg-slate-300  "
-          to="/Class/Home"
+          to="/Class/Schedule"
         >
           <CiCalendar size={20} /> <p>Lịch</p>
         </Link>

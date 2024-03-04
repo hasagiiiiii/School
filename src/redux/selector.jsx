@@ -18,7 +18,7 @@ export const ListSubject = createSelector(Class, Search, (listSub, search) => {
 
 // lấy preStudent nhập value => dipsatch value va filter
 
-//*********************************ListStudentReducer**************************************\\
+/* <---------------------/ListStudentReducer\----------------------------> */
 
 export const Students = (state) => state.Students.preStudent; // get all Students
 export const FilterSearchStuden = (state) => state.FilterSearchStudent.name; // lấy field Name trong FIlterSearch
