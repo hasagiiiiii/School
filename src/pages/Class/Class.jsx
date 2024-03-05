@@ -6,21 +6,21 @@ import { AuthContext } from "../../Context/AuthProvider";
 import SideBar from "./Component/SideBar";
 
 const Class = () => {
-  const { isLogin } = React.useContext(AuthContext); // Check User Login
-  // useEffect(() => {
-  //   CheckRedirect();
-  // }, [CheckRedirect]);
+  const { isLogin,CheckRedirect } = React.useContext(AuthContext); // Check User Login
+  React.useEffect(() => {
+    CheckRedirect();
+  }, [CheckRedirect,isLogin]);
 
-  // if (
-  //   !JSON.parse(localStorage.getItem("acces")).info.role_School === "student"
-  // ) {
-  //   // check xem ROLE của user có đủ thầm quyền hay không
-  //   return console.error("Khoong có quyền truy cập");
-  // }
+  if (
+    !JSON.parse(localStorage.getItem("acces"))?.info?.role_School === "student"
+  ) {
+    // check xem ROLE của user có đủ thầm quyền hay không
+    return console.error("Khoong có quyền truy cập");
+  }
 
-  // if (!isLogin) {
-  //   return "NotFound";
-  // }
+  if (!isLogin) {
+    return null;
+  }
   return (
     <div className="wrapper-class">
       <HeaderCLass />

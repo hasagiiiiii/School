@@ -5,8 +5,10 @@ import { Link } from "react-router-dom";
 import { AppContext } from "../../Context/AppContext";
 import Logo from "../../assets/logo.jpg";
 import "./index.scss";
+import { AuthContext } from "../../Context/AuthProvider";
 const HeaderCLass = () => {
   const [active, setActive] = React.useState(false);
+  const {Logout} = React.useContext(AuthContext)
   const { setIsOpenFormAddCLass } = React.useContext(AppContext);
   const handleOpenLogin = () => {
     setActive(false);
@@ -40,6 +42,7 @@ const HeaderCLass = () => {
           {username?.charAt(0).toUpperCase()}
         </Avatar>
       </div>
+      <p onClick={Logout}>Logout</p>
     </header>
   );
 };

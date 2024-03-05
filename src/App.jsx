@@ -18,6 +18,7 @@ import Department from "./pages/Department/Department";
 import { ActiveModalProvider } from "./Context/ActiveModal";
 import AddSubjectModal from "./Modals/AddSubjectModal";
 import { Schedule } from "./pages/Class/Component/Schedule";
+import { Loading } from "./Component/Loading";
 const App = () => {
   return (
     <BrowserRouter basename="">
@@ -32,12 +33,10 @@ const App = () => {
                     <Route path="/" element={<RootLayout />}>
                       <Route index element={<Home />} />
                     </Route>
-
                     <Route path="/Class" element={<Class />}>
                       <Route index element={<Table />} />
                       <Route path="/Class/Schedule" element={<Schedule/>} />
                     </Route>
-
                     <Route path="/Department" element={<Department />}>
                       <Route index element={<ContentDepartment />} />
                     </Route>
@@ -47,6 +46,7 @@ const App = () => {
                   <LoginModal />
                   <AddClassModal />
                   <AddSubjectModal/>
+                  <Loading/>
                   {/* Finish Modal */}
                   </ActiveModalProvider>
                 </ClassRoomListProvider>

@@ -5,18 +5,33 @@ import { useNavigate } from "react-router";
 export const AuthContext = React.createContext();
 
 const AuthProvider = ({ children }) => {
-  const [isLogin, setLogin] = React.useState(1); // Check User Login
+  const [isLogin, setLogin] = React.useState(false); // Check User Login
+  const [loading, setLoading] = React.useState(false)
   let navigate = useNavigate();
   const dispatch = useDispatch();
 
+  React.useEffect(()=>{
+    setLoading(true)
+
+    return ()=>{
+      setTimeout(()=>{setLoading(false)},2000)
+    }
+  },[navigate])
+
+
+
+
   const Logout = () => {
     localStorage.removeItem("acces");
-    //Remove acces_token
+    //Remove acces_tokense
+    setLogin(false)
+    navigate('/')
     window.location.reload();
   };
   const CheckRedirect = () => {
     // Check Redirect
-    if (!isLogin) {
+    if (isLogin===false) {
+      setLoading(true) // HIển thị loading trước khi render content 
       navigate("/");
       return null;
     }
@@ -31,7 +46,7 @@ const AuthProvider = ({ children }) => {
   }, [navigate, dispatch]);
 
   return (
-    <AuthContext.Provider value={{ Logout, isLogin, CheckRedirect }}>
+    <AuthContext.Provider value={{ Logout, isLogin, CheckRedirect,loading,setLoading }}>
       {children}
     </AuthContext.Provider>
   );

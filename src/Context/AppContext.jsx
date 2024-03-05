@@ -28,7 +28,7 @@ const AppProvider = ({ children }) => {
       ),
     },
   ];
-
+  
   const TOKEN = localStorage.getItem("acces")
   // Start handleDisableScroll
   const hanldeDisableScroll = () => {
@@ -51,7 +51,7 @@ const AppProvider = ({ children }) => {
   {/* <---------------------/START FECTH_API\----------------------------> */}
   React.useEffect(() => {
     if(TOKEN!==null){
-      FETCH_API.fetchAPIV1GET_Authoriez("school/teacher", setTeacher,TOKEN); // GET ALL TEACHER {error : NOT FOUND 404}
+      FETCH_API.fetchAPIV1GET_Authoriez("teacher", setTeacher,TOKEN); // GET ALL TEACHER {error : NOT FOUND 404}
        FETCH_API.fetchAPIV1GET_Authoriez("school/khoa",setKhoa,TOKEN)
     }
     // FETCH_API.fetchApiV1GET("class", setListClass); // GET ALL CLASS

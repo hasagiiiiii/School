@@ -4,7 +4,7 @@ export const Schedule = () => {
     const [isActive,setIsActive] = React.useState(false);
   return (
     <div className='bg-green-500 h-screen'>
-        <table border='1' className='w-full h-full border-collapse font-thin overflow-hidden shadow-sm'>
+        <table id='schedule' border='1' className='w-full h-full border-collapse font-thin overflow-hidden shadow-sm'>
             <thead>
                 <tr>
                     <th>MonDay</th>
