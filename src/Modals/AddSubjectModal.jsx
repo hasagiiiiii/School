@@ -11,14 +11,15 @@ const AddSubjectModal = () => {
   const {isAddClassSubjectModal,setIsAddClassSubjectModal} = React.useContext(ActiveModalContext)
   const {teachers,columns} = React.useContext(AppContext)
   const listStudent = useSelector(StudentsFilter);
-  // console.log(teachers)
-  const [form] = Form.useForm()
+  const [valueInput, setValueInput] = React.useState("");
+  const [selectedRowKeys, setSelectedRowKeys] = React.useState([]);
+  const [loading, setLoading] = React.useState(false);
+  const [form] = Form.useForm()  
   const onCancel = () => {
     setIsAddClassSubjectModal(false);
   };
   const onFinish = ()=>{
-    const FormValue = form.getFieldValue()
-    console.log(FormValue)
+    const FormValue = form.getFieldValue() // Lay data trong form 
   }
   return (
     <Modal onCancel={onCancel} footer={null} width={700} open={isAddClassSubjectModal}>
@@ -48,7 +49,10 @@ const AddSubjectModal = () => {
           />
         </Form.Item>
         <FormItem>
-          <Table columns={columns} />
+          <Table columns={columns} dataSource={listStudent.map((student)=>({
+            ...student,
+            key:student.id_MenberSchool
+          }))} />
         </FormItem>
         <FormItem> <Button htmlType="submit">Dong y</Button></FormItem>
       </Form>

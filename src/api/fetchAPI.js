@@ -30,7 +30,6 @@ export const FETCH_API = {
             headers:{ Authorization: `Bearer ${JSON.parse(token).access_Token}`,}
           })
           const data = await response.json();
-          
           action(data);
         }catch(err){
           console.log(err)
