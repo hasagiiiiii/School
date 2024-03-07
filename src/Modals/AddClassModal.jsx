@@ -14,7 +14,7 @@ const AddClassModal = () => {
     form.resetFields();
     setIsOpenFormAddCLass(false);
   };
-  
+  console.log(teachers)
   return (
     <Modal
       title="Login"

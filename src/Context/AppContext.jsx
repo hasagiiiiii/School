@@ -41,6 +41,7 @@ const AppProvider = ({ children }) => {
       // cố định cho scroll tại ví trí màn hình
       window.scrollTo(ScrollTop, ScrollLeft);
     };
+
   };
   // Finish DisableScroll
 
@@ -51,7 +52,7 @@ const AppProvider = ({ children }) => {
   {/* <---------------------/START FECTH_API\----------------------------> */}
   React.useEffect(() => {
     if(TOKEN!==null){
-      FETCH_API.fetchAPIV1GET_Authoriez("teacher", setTeacher,TOKEN); // GET ALL TEACHER {error : NOT FOUND 404}
+      // FETCH_API.fetchAPIV1GET_Authoriez("teacher", setTeacher,TOKEN); // GET ALL TEACHER {error : NOT FOUND 404}
        FETCH_API.fetchAPIV1GET_Authoriez("school/khoa",setKhoa,TOKEN)
     }
     // FETCH_API.fetchApiV1GET("class", setListClass); // GET ALL CLASS

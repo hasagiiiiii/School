@@ -1,14 +1,14 @@
-// th,td{
-//     background-color: #ffffff33;
-//     color: #fff;
-//     border: 1px solid #000; /* Đường viền */
-//     columns: 1;
-//     width: 290px;
-// }
-// th:nth-child(3), td:nth-child(3) {
-//     width: 278px; /* Kích thước của cột thứ hai */
-// }
-th{
+#schedule th,#schedule td{
+    background-color: #ffffff33;
+    color: #fff;
+    border: 1px solid #000; /* Đường viền */
+    columns: 1;
+    width: 290px;
+}
+#schedule th:nth-child(3),#schedule td:nth-child(3) {
+    width: 278px; /* Kích thước của cột thứ hai */
+}
+#schedule th{
     text-align: left;
     
 }

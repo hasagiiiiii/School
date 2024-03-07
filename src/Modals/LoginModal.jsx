@@ -24,7 +24,8 @@ const LoginModal = () => {
       })
         .then((res) => res.json())
         .then((data) => {
-          document.cookie = `access_token = ${data.access_Token};expires=3000`;
+          document.cookie = `access_token = ${data.access_Token};Max-Age=600`;
+          document.cookie = 'Dovantrung = 200asgdDSBDHJKASD'
           window.localStorage.setItem("acces", JSON.stringify(data));
           window.location.reload();
           setLogin(true)

@@ -26,7 +26,7 @@ const ContentDepartment = () => {
   React.useEffect(() => {
     const token = localStorage.getItem("acces");
     try {
-      fetch(`${process.env.REACT_APP_URL_SEVER}/api/v1/school/menber`, {
+      fetch(`${process.env.REACT_APP_URL_SEVER}/api/v1/student`, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${JSON.parse(token).access_Token}`,
