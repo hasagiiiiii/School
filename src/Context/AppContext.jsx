@@ -1,15 +1,17 @@
 import React from "react";
 import { FETCH_API } from "../api/fetchAPI";
+import { AuthContext } from "./AuthProvider";
+import { Service } from "../api/service";
 export const AppContext = React.createContext();
 const AppProvider = ({ children }) => {
   const [isToggle, setIstoggle] = React.useState(false);
   const [open, setOpen] = React.useState(false);
-  const [isOpenFormAddClass, setIsOpenFormAddCLass] = React.useState(false); // open and close Modal AddClassModal
   const [teachers, setTeacher] = React.useState([]); // GET Data is Fetch Api Teacher
   const [khoa, setKhoa] = React.useState([]); // GET Data is Fetch Api Khoa
   const [listClass, setListClass] = React.useState([1]); // GET Data is Fetch Api ALL Class
+  const {isLogin} = React.useContext(AuthContext)
   const columns = [
-    { title: "MSV", dataIndex: "msv", key: "msv" },
+    { title: "MSV", dataIndex: "id_Student", key: "id_Student" },
     { title: "FullName", dataIndex: "fullName", key: "fullName" },
     { title: "Email", dataIndex: "email_User", key: "email_User" },
     { title: "Sex", dataIndex: "sex_User", key: "sex_User" },
@@ -29,7 +31,6 @@ const AppProvider = ({ children }) => {
     },
   ];
   
-  const TOKEN = localStorage.getItem("acces")
   // Start handleDisableScroll
   const hanldeDisableScroll = () => {
     setIstoggle(!isToggle);
@@ -51,13 +52,10 @@ const AppProvider = ({ children }) => {
   };
   {/* <---------------------/START FECTH_API\----------------------------> */}
   React.useEffect(() => {
-    if(TOKEN!==null){
-      // FETCH_API.fetchAPIV1GET_Authoriez("teacher", setTeacher,TOKEN); // GET ALL TEACHER {error : NOT FOUND 404}
-       FETCH_API.fetchAPIV1GET_Authoriez("school/khoa",setKhoa,TOKEN)
-    }
-    // FETCH_API.fetchApiV1GET("class", setListClass); // GET ALL CLASS
-    return () => {};
-  }, [TOKEN]);
+   if(Service.getTokenCookies()){
+    FETCH_API.fetchAPIV1GET_Authoriez("teacher", setTeacher) // Get all teacher
+   } 
+  }, []);
   return (
     <AppContext.Provider
       value={{
@@ -67,8 +65,6 @@ const AppProvider = ({ children }) => {
         handleEnabaleScroll,
         open,
         setOpen,
-        isOpenFormAddClass,
-        setIsOpenFormAddCLass,
         teachers,
         khoa,
         listClass,

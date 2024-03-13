@@ -3,7 +3,7 @@ import React from "react";
 import { AppContext } from "../Context/AppContext";
 import { useDispatch } from "react-redux";
 import LoginReducer from "../redux/LoginReducer";
-import { useNavigate } from "react-router-dom";
+import { json, useNavigate } from "react-router-dom";
 import { AuthContext } from "../Context/AuthProvider";
 
 const LoginModal = () => {
@@ -24,9 +24,9 @@ const LoginModal = () => {
       })
         .then((res) => res.json())
         .then((data) => {
-          document.cookie = `access_token = ${data.access_Token};Max-Age=600`;
-          document.cookie = 'Dovantrung = 200asgdDSBDHJKASD'
-          window.localStorage.setItem("acces", JSON.stringify(data));
+          document.cookie = `access_token = ${data.access_Token};Max-Age=43200`;
+          document.cookie = `refesh_Token = ${data.refesh_Token};`
+          document.cookie = `Info = ${JSON.stringify(data.info)}`
           window.location.reload();
           setLogin(true)
           return dispatch(LoginReducer.actions.login(data));

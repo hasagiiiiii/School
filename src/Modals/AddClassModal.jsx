@@ -1,25 +1,60 @@
-import { Button, Form, Input, Modal, Select } from "antd";
+import { Button, Form, Input, Modal, Select, Table } from "antd";
 import React from "react";
 import { AppContext } from "../Context/AppContext";
+import { ActiveModalContext } from "../Context/ActiveModal";
+import { useSelector } from "react-redux";
+import { StudentsFilter } from "../redux/selector";
+import {DebounceSelect} from "../api/DebounceSelect";
+import { FETCH_API_Class } from "../api/FetchAPIClass";
 
 const AddClassModal = () => {
-  const { isOpenFormAddClass, teachers, khoa, setIsOpenFormAddCLass } =
-    React.useContext(AppContext);
+  const { teachers,columns } = React.useContext(AppContext);
+  const { isOpenAddClassModal, setIsOpenAddClassModal } =
+    React.useContext(ActiveModalContext);
+  const listStudent = useSelector(StudentsFilter);
+  const [selectedRowKeys, setSelectedRowKeys] = React.useState([]);
+  const [teacherSelectedUpdate,setTeacherSelectedUpdate] = React.useState([])
   const [form] = Form.useForm();
   const onFinish = () => {
     const FormValue = form.getFieldValue();
-    // dispatch(ClassReducer.actions.addClass({ ...FormValue, listMonHoc: [] }));
+    const converStudent =selectedRowKeys.map(student =>({id_Student : student}))
+    FETCH_API_Class.AddClass({...FormValue,id_Teacher : FormValue.id_Teacher[0].value,student:[...converStudent]})
+    form.resetFields()
+    setSelectedRowKeys([])
   };
   const handleCancel = () => {
     form.resetFields();
-    setIsOpenFormAddCLass(false);
+    setIsOpenAddClassModal(false);
   };
-  console.log(teachers)
+
+  //<-----------------------Bắt Đầu Lọc Giáo Viên ----------------------------->//
+  const fetchUserList = async (valueSearch, currentTeacher) => {
+  
+    const FillterSearch = currentTeacher.filter((teacher) =>
+    teacher.user_Name.includes(valueSearch)
+    ); // Fillter Search xem có người dùng nào giống không
+    const TeacherFIll =FillterSearch?.map((teacher) => ({
+      label: teacher.fullName,
+      value: teacher.id_Teacher,
+      photoURL: teacher?.photoURL,
+    })) // Map arr có người dùng giống với yêu cầu trong state ra và lọc tránh trùng vói người đã có trong lớp
+    
+   return TeacherFIll
+  };
+  //<-----------------------Kết Thúc Lọc Giáo Viên ----------------------------->//
+  const onSelectChange = (newSelectedRowKeys) => {
+    setSelectedRowKeys(newSelectedRowKeys);
+  };
+  const rowSelection = {
+    selectedRowKeys,
+    onChange: onSelectChange,
+  };
+
   return (
     <Modal
       title="Login"
       onCancel={handleCancel}
-      open={isOpenFormAddClass}
+      open={isOpenAddClassModal}
       footer={null}
       width={1000}
     >
@@ -31,28 +66,14 @@ const AddClassModal = () => {
         >
           <Input placeholder="Class Name" variant="filled" />
         </Form.Item>
-        {/* <Form.Item
-          rules={[{ required: true, message: "please input your Class Name" }]}
-          label="ClassName"
-          name="name_Khoa"
-        >
-          <Select
-            showSearch
-            mode="tags"
-            optionFilterProp="name_Khoa"
-            placeholder="Choose Teacher"
-            options={khoa.map((item) => ({
-              value: item.ma_Khoa,
-              label: item.name_Khoa,
-            }))}
-          />
-        </Form.Item> */}
         <Form.Item
-          rules={[{ required: true, message: "Please choose your Teacher Name" }]}
+          rules={[
+            { required: true, message: "Please choose your Teacher Name" },
+          ]}
           label={<p className="w-24 text-left">Teacher</p>}
-          name="teacher"
+          name="id_Teacher"
         >
-          <Select
+          {/* <Select
             showSearch
             mode="tags"
             optionFilterProp="user_Name"
@@ -61,6 +82,24 @@ const AddClassModal = () => {
               value: item?.user_Name,
               label: item?.user_Name,
             }))}
+          /> */}
+          <DebounceSelect
+            mode = "multiple"
+            // label = "Giáo Viên"
+            value={teacherSelectedUpdate}
+            fetchOption={(value)=>fetchUserList(value,teachers)}
+            onChange={newValue=> setTeacherSelectedUpdate(newValue)}
+            // currentTeacher = {teachers}
+          />
+        </Form.Item>
+        <Form.Item>
+          <Table 
+          rowSelection={rowSelection}
+          columns={columns}
+          dataSource={listStudent?.map((student)=>({
+            ...student,
+            key:student.id_Student
+          }))}
           />
         </Form.Item>
         <Form.Item>

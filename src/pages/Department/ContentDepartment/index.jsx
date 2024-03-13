@@ -9,27 +9,26 @@ import { StudentsFilter } from "../../../redux/selector";
 import { IoMdAdd } from "react-icons/io";
 import { ActiveModalContext } from "../../../Context/ActiveModal";
 import { AppContext } from "../../../Context/AppContext";
+import { Service } from "../../../api/service";
 
 
 
 const ContentDepartment = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const {setIsAddClassSubjectModal} = React.useContext(ActiveModalContext);
+  const {setIsAddClassSubjectModal,setIsOpenAddClassModal} = React.useContext(ActiveModalContext);
   const {columns} = React.useContext(AppContext)
   const [valueInput, setValueInput] = React.useState("");
   const [selectedRowKeys, setSelectedRowKeys] = React.useState([]);
   const [loading, setLoading] = React.useState(false);
   const listStudent = useSelector(StudentsFilter);
-  console.log(listStudent);
   // start fetch API Get All Student
-  React.useEffect(() => {
-    const token = localStorage.getItem("acces");
+  React.useMemo(() => {
     try {
       fetch(`${process.env.REACT_APP_URL_SEVER}/api/v1/student`, {
         method: "GET",
         headers: {
-          Authorization: `Bearer ${JSON.parse(token).access_Token}`,
+          Authorization: `Bearer ${Service.getTokenCookies()}`, 
         },
       })
         .then((res) => res.json())
@@ -38,7 +37,7 @@ const ContentDepartment = () => {
     } catch (err) {
       console.log(err);
     }
-  }, [navigate]);
+  }, []);
   // finish fetch API
 
   // handle onChangeInput
@@ -83,10 +82,15 @@ const ContentDepartment = () => {
             
           />
         </div>
-        <div onClick={()=>setIsAddClassSubjectModal(true)}>
+        <div onClick={()=>setIsOpenAddClassModal(true)} className="mr-3">
           <div className="icons ml-auto cursor-pointer">
-            <IoMdAdd size={30} />
+            <Button className="flex items-center" icon={<IoMdAdd size={20} />} size="large">
+            AddClass
+            </Button>
           </div>
+        </div>
+        <div onClick={()=>setIsAddClassSubjectModal(true)}>
+          <Button icon={<IoMdAdd size={20} />} size="large">AddSubjectClass</Button>
         </div>
       </div>
       {/* <---------------------/START TALBE\----------------------------> */}
@@ -120,4 +124,4 @@ const ContentDepartment = () => {
   );
 };
 
-export default ContentDepartment;
+export default React.memo(ContentDepartment);

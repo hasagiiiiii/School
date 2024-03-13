@@ -3,10 +3,6 @@ import { Col, Row } from "antd";
 import SidebarDeparment from "./SidebarDepartment";
 import { Outlet } from "react-router-dom";
 const Department = () => {
-  if (!JSON.parse(localStorage.getItem("acces"))?.info?.role_School ==="school management" || JSON.parse(localStorage.getItem("acces"))?.info?.role_School ===null) {
-    // check ROLE có đủ quyền không?
-    return console.error("Khôngg đủ quyền truy cập");
-  }
   return (
     <div>
       <Row>

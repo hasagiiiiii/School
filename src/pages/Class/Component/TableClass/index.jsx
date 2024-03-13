@@ -56,7 +56,7 @@ const Table = () => {
   const [selectedRowKeys, setSelectedRowKeys] = React.useState([]);
   const [loading, setLoading] = React.useState(false);
   const data = useSelector(ListSubject)[0]?.listMonHoc;
-  const { columns } = React.useContext(ClassRoomListContext);
+  const { columnsViewStudent } = React.useContext(ClassRoomListContext);
   const start = () => {
     setLoading(true);
     // ajax request after empty completing
@@ -103,7 +103,7 @@ const Table = () => {
           </div>
           <Tb
             rowSelection={rowSelection}
-            columns={columns}
+            columns={columnsViewStudent}
             dataSource={data?.map((item, index) => ({
               ...item,
               key: index,
