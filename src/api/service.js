@@ -1,19 +1,18 @@
-export const FetchAPi = async (ROLE, TOKEN) => {
-  try {
-    const response = fetch(
-      `http://trendyt20231-001-site1.ftempurl.com/api/v1/school/user-school`,
-      {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${TOKEN}`,
-        },
-      }
-    )
-      .then((res) => res.json())
-      .then((data) => data);
-    console.log(response);
-    return response;
-  } catch (err) {
-    console.log(err);
+export const Service  = {
+  getTokenCookies : ()=>{
+    const cookies = document.cookie?.split(";");
+    // isAuthenticator.filter
+    const acces_tokens =cookies?.filter(cookie => cookie.includes('access_token')); // Kiểm tra xem có access token có hay không
+    return acces_tokens[0]?.split("=")[1] // lay value sau dau =;
+  },
+  DeleteCookie : (nameCookie)=>{
+    document.cookie = `${nameCookie} =;expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; `
+    // document.cookie = ''
+  },
+  getRefeshToken : ()=>{
+    const cookies = document.cookie?.split(";");
+    const refeshToken = cookies?.filter(cookie => cookie.includes('refesh_Token'));
+    return refeshToken[0]?.split("=")[1];
   }
-};
+ 
+}

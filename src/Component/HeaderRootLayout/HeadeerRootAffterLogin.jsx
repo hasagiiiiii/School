@@ -25,6 +25,7 @@ const HeadeerRootAffterLogin = () => {
               className={isActive === 1 ? "active" : ""}
               onClick={() => setIsActive(1)}
               to=""
+              aria-readonly="true"
             >
               Home
             </Link>

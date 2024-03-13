@@ -2,12 +2,9 @@ import React from "react";
 import { Outlet } from "react-router-dom";
 import HeadeerRootAffterLogin from "../Component/HeaderRootLayout/HeadeerRootAffterLogin";
 import HeaderRootLayout from "../Component/HeaderRootLayout/HeaderRootLayout";
+import { Service } from "../api/service";
 const RootLayout = () => {
-  const Loged = window.localStorage.getItem("acces");
-  const [isLogin, setIslogin] = React.useState(Loged);
-  React.useEffect(() => {
-    setIslogin(Loged);
-  }, [Loged]);
+  const isLogin = Service.getTokenCookies()
   return (
     <>
       {isLogin ? <HeadeerRootAffterLogin /> : <HeaderRootLayout />}

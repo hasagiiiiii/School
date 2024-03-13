@@ -31,10 +31,10 @@ export const StudentsFilter = createSelector(
       const FielValue = valueInput.split(""); // tách ký tự valueInput ra thành mảng
 
       const StudentsCopy = [...listStudent]; // copy lại listStudent
-
+      console.log(StudentsCopy)
       return StudentsCopy.filter((std) => {
         return FielValue.every((value) => {
-          return std.msv.includes(value) || std.fullName.includes(value);
+          return std.user_Name.includes(value) || std.fullName.includes(value);
         }); // kiểm tra xem std.msv có std nào có msv giống như vậy không
       });
     } else {

@@ -11,16 +11,16 @@ const Class = () => {
     CheckRedirect();
   }, [CheckRedirect,isLogin]);
 
-  if (
-    !JSON.parse(localStorage.getItem("acces"))?.info?.role_School === "student"
-  ) {
-    // check xem ROLE của user có đủ thầm quyền hay không
-    return console.error("Khoong có quyền truy cập");
-  }
+  // if (
+  //   !JSON.parse(localStorage.getItem("acces"))?.info?.role_School === "student"
+  // ) {
+  //   // check xem ROLE của user có đủ thầm quyền hay không
+  //   return console.error("Khoong có quyền truy cập");
+  // }
 
-  if (!isLogin) {
-    return null;
-  }
+  // if (!isLogin) {
+  //   return null;
+  // }
   return (
     <div className="wrapper-class">
       <HeaderCLass />

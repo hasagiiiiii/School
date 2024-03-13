@@ -1,9 +1,10 @@
-import { Button, Form, Input, Modal, Select, Table } from "antd";
+import { Button, Form, Input, Modal, Select, Table,Space } from "antd";
 import React from "react";
 import { ActiveModalContext } from "../Context/ActiveModal";
 import { useSelector } from "react-redux";
 import { StudentsFilter } from "../redux/selector";
 import FormItem from "antd/es/form/FormItem";
+import { IoIosSearch } from "react-icons/io";
 import { AppContext } from "../Context/AppContext";
 
 
@@ -11,16 +12,30 @@ const AddSubjectModal = () => {
   const {isAddClassSubjectModal,setIsAddClassSubjectModal} = React.useContext(ActiveModalContext)
   const {teachers,columns} = React.useContext(AppContext)
   const listStudent = useSelector(StudentsFilter);
-  const [valueInput, setValueInput] = React.useState("");
   const [selectedRowKeys, setSelectedRowKeys] = React.useState([]);
-  const [loading, setLoading] = React.useState(false);
   const [form] = Form.useForm()  
   const onCancel = () => {
     setIsAddClassSubjectModal(false);
   };
   const onFinish = ()=>{
     const FormValue = form.getFieldValue() // Lay data trong form 
+    console.log(FormValue, {...selectedRowKeys})
+    setSelectedRowKeys([])
+    form.resetFields()
   }
+  const handleOnchangeInput = (value) => {
+    dispatch(FilterSearchStudent.actions.filterSearchName(value));
+    setValueInput(value);
+  };
+
+  //
+  const onSelectChange = (newSelectedRowKeys) => {
+    setSelectedRowKeys(newSelectedRowKeys);
+  };
+  const rowSelection = {
+    selectedRowKeys,
+    onChange: onSelectChange,
+  };
   return (
     <Modal onCancel={onCancel} footer={null} width={700} open={isAddClassSubjectModal}>
       <Form form={form} onFinish={onFinish} className="pt-10 px-5">
@@ -48,11 +63,24 @@ const AddSubjectModal = () => {
             }))}
           />
         </Form.Item>
+        <div>
+          <Space.Compact><Select defaultValue={"ClassName"} /> <Input size="middle" prefix={<IoIosSearch/>}/></Space.Compact>
+        </div>
         <FormItem>
-          <Table columns={columns} dataSource={listStudent.map((student)=>({
+          <Table
+          rowSelection={rowSelection}
+           columns={columns}
+           dataSource={listStudent.map((student)=>({
             ...student,
-            key:student.id_MenberSchool
-          }))} />
+            key:student.id_Student
+          }))}
+          size="large"
+          scroll={{
+            x: '500px',
+            y: 240,
+          }}
+          pagination={{defaultPageSize:5,pageSizeOptions:['5','10','15'],showSizeChanger:true}}
+          />
         </FormItem>
         <FormItem> <Button htmlType="submit">Dong y</Button></FormItem>
       </Form>
