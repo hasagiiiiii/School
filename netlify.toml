@@ -1,5 +1,5 @@
 [[redirects]]
   from = "/*"
-  to = "http://example.com/:splat"
+  to = "https://trendyt.netlify.app/"
   status = 200
   force = true
