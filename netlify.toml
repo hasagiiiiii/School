@@ -1,5 +1,5 @@
 [[redirects]]
   from = "/*"
-  to = "https://trendyt.netlify.app/"
+  to = "http://trendyt.netlify.app/"
   status = 200
   force = true
