@@ -31,10 +31,10 @@ const AddSubjectModal = () => {
     setSelectedRowKeys([])
     form.resetFields()
   }
-  const handleOnchangeInput = (value) => {
-    dispatch(FilterSearchStudent.actions.filterSearchName(value));
-    setValueInput(value);
-  };
+  // const handleOnchangeInput = (value) => {
+  //   dispatch(FilterSearchStudent.actions.filterSearchName(value));
+  //   setValueInput(value);
+  // };
 
   //
   const onSelectChange = (newSelectedRowKeys) => {
