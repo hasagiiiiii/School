@@ -1,5 +1,5 @@
-import { Avatar, Collapse, Typography } from "antd";
 import React from "react";
+import { Avatar, Collapse } from "antd";
 import { CiCalendar } from "react-icons/ci";
 import { GoChecklist } from "react-icons/go";
 import { IoMdHome } from "react-icons/io";
@@ -42,14 +42,15 @@ const SideBar = () => {
             </p>
           }
         >
-          <Typography.Link className="flex items-center text-[18px] justify-start pl-9  text-black w-full py-2 my-3 gap-3 rounded-r-3xl hover:bg-slate-200 ease-in-out duration-200 active:bg-slate-300">
+          <Link className="flex items-center text-[18px] justify-start pl-9  text-black w-full py-2 my-3 gap-3 rounded-r-3xl hover:bg-slate-200 ease-in-out duration-200 active:bg-slate-300">
             <GoChecklist size={20} /> Việc Cần Làm
-          </Typography.Link>
+          </Link>
           {listClass.map((room, index) => (
-            <Typography.Link
+            <Link
               onClick={() => FilterChange(room.name_ClassSchool)}
               className="flex items-center justify-start pl-7 w-full py-2 my-3 gap-3 rounded-r-3xl hover:bg-slate-200 ease-in-out duration-200 active:bg-slate-300 "
               key={index}
+              to="/Class/"
             >
               <Avatar src={room.photo_URL}>
                 {room.photo_URL
@@ -59,7 +60,7 @@ const SideBar = () => {
               <p className="!mb-0 text-black hover:text-black">
                 {room.name_ClassSchool}
               </p>
-            </Typography.Link>
+            </Link>
           ))}
         </Collapse.Panel>
       </Collapse>

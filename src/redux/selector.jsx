@@ -21,24 +21,31 @@ export const ListSubject = createSelector(Class, Search, (listSub, search) => {
 /* <---------------------/ListStudentReducer\----------------------------> */
 
 export const Students = (state) => state.Students.preStudent; // get all Students
-export const FilterSearchStuden = (state) => state.FilterSearchStudent.name; // lấy field Name trong FIlterSearch
-
+export const FilterSearchStudent = (state) => state.FilterSearchStudent.fullName; // lấy field Name trong FIlterSearch
+export const TyepFillterStudent = (state) => state.FilterClassREducer.type;
 export const StudentsFilter = createSelector(
   Students,
-  FilterSearchStuden,
+  FilterSearchStudent,
   (listStudent, valueInput) => {
     if (valueInput !== "") {
       const FielValue = valueInput.split(""); // tách ký tự valueInput ra thành mảng
 
       const StudentsCopy = [...listStudent]; // copy lại listStudent
-      console.log(StudentsCopy)
       return StudentsCopy.filter((std) => {
         return FielValue.every((value) => {
           return std.user_Name.includes(value) || std.fullName.includes(value);
-        }); // kiểm tra xem std.msv có std nào có msv giống như vậy không
+        }); // kiểm tra xem Student có user_Name || fullName nào có us giống như vậy không
       });
     } else {
       return listStudent;
     }
   }
 );
+
+export const StudentFillterAddClassSubject = createSelector(
+  Students,
+  FilterSearchStudent,
+  TyepFillterStudent,
+  (listStudent,valueInput,type)=>{
+    
+})

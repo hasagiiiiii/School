@@ -1,11 +1,18 @@
 import { Button, Form, Input, Modal, Select, Table,Space } from "antd";
 import React from "react";
 import { ActiveModalContext } from "../Context/ActiveModal";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { StudentsFilter } from "../redux/selector";
 import FormItem from "antd/es/form/FormItem";
 import { IoIosSearch } from "react-icons/io";
 import { AppContext } from "../Context/AppContext";
+import FilterSearchStudent from "../redux/SchoolReducer/FilterSearchStudent";
+
+const option =[
+  {value:"Class",label:"Class"},
+  {value:"user_Name",label:"UserName"},
+  {value:"full_Name",label:"FullName"},
+]
 
 
 const AddSubjectModal = () => {
@@ -14,6 +21,7 @@ const AddSubjectModal = () => {
   const listStudent = useSelector(StudentsFilter);
   const [selectedRowKeys, setSelectedRowKeys] = React.useState([]);
   const [form] = Form.useForm()  
+  const dispatch = useDispatch()
   const onCancel = () => {
     setIsAddClassSubjectModal(false);
   };
@@ -36,6 +44,9 @@ const AddSubjectModal = () => {
     selectedRowKeys,
     onChange: onSelectChange,
   };
+  const onChangeSelectOption = (value)=>{
+    dispatch(FilterSearchStudent.actions.onChangeType(value))
+  }
   return (
     <Modal onCancel={onCancel} footer={null} width={700} open={isAddClassSubjectModal}>
       <Form form={form} onFinish={onFinish} className="pt-10 px-5">
@@ -64,7 +75,7 @@ const AddSubjectModal = () => {
           />
         </Form.Item>
         <div>
-          <Space.Compact><Select defaultValue={"ClassName"} /> <Input size="middle" prefix={<IoIosSearch/>}/></Space.Compact>
+          <Space.Compact><Select defaultValue={"Class"} options={option} onChange={onChangeSelectOption} /> <Input size="middle" prefix={<IoIosSearch/>}/></Space.Compact>
         </div>
         <FormItem>
           <Table
