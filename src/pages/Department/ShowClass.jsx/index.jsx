@@ -13,7 +13,7 @@ export const ShowClass = () => {
     console.log('Row clicked:', record);
     // Thực hiện hành động mong muốn khi hàng được nhấp vào
   };
-  console.log(listClass)
+
   return (
     <div>
       <Table

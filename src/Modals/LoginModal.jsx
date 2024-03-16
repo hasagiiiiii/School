@@ -3,7 +3,7 @@ import React from "react";
 import { AppContext } from "../Context/AppContext";
 import { useDispatch } from "react-redux";
 import LoginReducer from "../redux/LoginReducer";
-import { json, useNavigate } from "react-router-dom";
+import {useNavigate } from "react-router-dom";
 import { AuthContext } from "../Context/AuthProvider";
 
 const LoginModal = () => {
