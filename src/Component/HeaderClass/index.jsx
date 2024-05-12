@@ -13,7 +13,6 @@ const HeaderCLass = () => {
   const handleOpenLogin = () => {
     setActive(false);
   };
-  const username = JSON.parse(localStorage.getItem("acces"))?.info.user_Name;
   return (
     <header className="sticky top-0">
       <div className="header-left ">
@@ -38,11 +37,11 @@ const HeaderCLass = () => {
             <p onClick={() => setIsOpenFormAddCLass(true)}>Tạo Lớp Học</p>
           </div>
         </div>
-        <Avatar style={{ background: "blue" }}>
-          {username?.charAt(0).toUpperCase()}
+        <Avatar>
+         T
         </Avatar>
-      </div>
       <p onClick={Logout}>Logout</p>
+      </div>
     </header>
   );
 };

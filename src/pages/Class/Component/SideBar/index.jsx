@@ -4,17 +4,30 @@ import { CiCalendar } from "react-icons/ci";
 import { GoChecklist } from "react-icons/go";
 import { IoMdHome } from "react-icons/io";
 import { IoSchoolOutline } from "react-icons/io5";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { Class } from "../../../../redux/selector";
 import "./index.scss";
-import FilterClassReducer from "../TableClass/FilterClassReducer";
+import ClassSubjectReducer from "../../../../redux/TeacherReducer/ClassSubjectReducer";
 
 const SideBar = () => {
-  const listClass = useSelector(Class);
+  const [ClassSubject,setClassSubject]= React.useState([])
   const dispatch = useDispatch();
+  React.useEffect(()=>{
+    try {
+      fetch("http://localhost:5071/api/v1.0/monhoc",{
+        method:"GET",
+        credentials: 'include'
+      }).then(res=>res.json()).then(data=>{
+         dispatch( ClassSubjectReducer.actions.addClassSubject(data))
+        setClassSubject(data)
+      })
+    } catch (error) {
+      
+    }
+  },[])
   const FilterChange = (value) => {
-    dispatch(FilterClassReducer.actions.fillterValue(value));
+    console.log(value)
+  
   };
   return (
     <div className="fixed w-64 flex flex-col h-full justify-start border border-solid border-r-slate-200">
@@ -45,9 +58,9 @@ const SideBar = () => {
           <Link className="flex items-center text-[18px] justify-start pl-9  text-black w-full py-2 my-3 gap-3 rounded-r-3xl hover:bg-slate-200 ease-in-out duration-200 active:bg-slate-300">
             <GoChecklist size={20} /> Việc Cần Làm
           </Link>
-          {listClass.map((room, index) => (
+          {ClassSubject.map((room, index) => (
             <Link
-              onClick={() => FilterChange(room.name_ClassSchool)}
+              onClick={() => FilterChange(room)}
               className="flex items-center justify-start pl-7 w-full py-2 my-3 gap-3 rounded-r-3xl hover:bg-slate-200 ease-in-out duration-200 active:bg-slate-300 "
               key={index}
               to="/Class/"
@@ -55,10 +68,10 @@ const SideBar = () => {
               <Avatar src={room.photo_URL}>
                 {room.photo_URL
                   ? ""
-                  : room.name_ClassSchool?.charAt(0).toUpperCase()}
+                  : room.giangvien.fullName?.charAt(0).toUpperCase()}
               </Avatar>
               <p className="!mb-0 text-black hover:text-black">
-                {room.name_ClassSchool}
+                {room.name_MonHoc}
               </p>
             </Link>
           ))}
@@ -69,3 +82,4 @@ const SideBar = () => {
 };
 
 export default SideBar;
+

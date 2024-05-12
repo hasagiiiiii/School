@@ -5,7 +5,7 @@ export const FETCH_API = {
      fetchApiV1GET : async (type, action,token) => {
         try {
           const response = await fetch(
-            `${process.env.REACT_APP_URL_SEVER}/api/v1/${type}`,
+            `${process.env.REACT_APP_URL_SEVER}/api/v1.0/${type}`,
             {
               method: "GET",
               headers: {
@@ -25,12 +25,11 @@ export const FETCH_API = {
       },
       // GET API has condition
        fetchAPIV1GET_Authoriez: async (type,action)=>{
-        const access_Token = Service.getTokenCookies()
         try{
-          const response = await fetch(`${process.env.REACT_APP_URL_SEVER}/api/v1/${type}`,
+          const response = await fetch(`${process.env.REACT_APP_URL_SEVER}/api/v1.0/${type}`,
           {
             method: "GET",
-            headers:{ Authorization: `Bearer ${access_Token}`,}
+            credentials: 'include'
           })
           const data = await response.json();
           if(data===null){return action([])}

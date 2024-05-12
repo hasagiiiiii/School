@@ -7,8 +7,9 @@ export const ShowClass = () => {
   const [listClass,setListClass] = React.useState([])
   const {columnsViewClass} = React.useContext(ClassRoomListContext)
   React.useEffect(()=>{
-    FETCH_API.fetchAPIV1GET_Authoriez('class',setListClass)
+    FETCH_API.fetchAPIV1GET_Authoriez('class-school',setListClass)
   },[])
+  console.log(listClass)
   const handleRowClick = record => {
     console.log('Row clicked:', record);
     // Thực hiện hành động mong muốn khi hàng được nhấp vào

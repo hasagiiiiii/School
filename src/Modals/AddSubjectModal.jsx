@@ -2,7 +2,7 @@ import { Button, Form, Input, Modal, Select, Table,Space } from "antd";
 import React from "react";
 import { ActiveModalContext } from "../Context/ActiveModal";
 import { useDispatch, useSelector } from "react-redux";
-import { StudentsFilter } from "../redux/selector";
+import { StudentsFilter, TyepFillterStudent } from "../redux/selector";
 import FormItem from "antd/es/form/FormItem";
 import { IoIosSearch } from "react-icons/io";
 import { AppContext } from "../Context/AppContext";
@@ -11,7 +11,8 @@ import FilterSearchStudent from "../redux/SchoolReducer/FilterSearchStudent";
 const option =[
   {value:"Class",label:"Class"},
   {value:"user_Name",label:"UserName"},
-  {value:"full_Name",label:"FullName"},
+  {value:"fullName",label:"FullName"},
+  {value:"All",label:"All"},
 ]
 
 
@@ -37,6 +38,7 @@ const AddSubjectModal = () => {
   // };
 
   //
+  
   const onSelectChange = (newSelectedRowKeys) => {
     setSelectedRowKeys(newSelectedRowKeys);
   };
@@ -47,15 +49,19 @@ const AddSubjectModal = () => {
   const onChangeSelectOption = (value)=>{
     dispatch(FilterSearchStudent.actions.onChangeType(value))
   }
+
+  const handleChangInput = ()=>{
+    // dispatch(FilterSearchStudent.actions.filterSearchName(value))
+  }
   return (
-    <Modal onCancel={onCancel} footer={null} width={700} open={isAddClassSubjectModal}>
+    <Modal onCancel={onCancel} footer={null} width={1000} open={isAddClassSubjectModal}>
       <Form form={form} onFinish={onFinish} className="pt-10 px-5">
         <Form.Item
           rules={[{ required: true, message: "please input your Class Name" }]}
           name="Ten_Lop"
           label={<p className="w-32 text-left">Tên Lớp</p>}
         >
-          <Input variant="filled" style={{width:"90%"}} placeholder="Nhập Tên Lớp" />
+          <Input variant="filled" onChange={handleChangInput} style={{width:"90%"}} placeholder="Nhập Tên Lớp" />
         </Form.Item>
         <Form.Item
           name="teacher"
@@ -99,4 +105,4 @@ const AddSubjectModal = () => {
   );
 };
 
-export default AddSubjectModal;
+export default React.memo(AddSubjectModal);

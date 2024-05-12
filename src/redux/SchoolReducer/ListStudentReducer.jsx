@@ -9,5 +9,8 @@ export default createSlice({
     addStudents: (state, action) => {
       state.preStudent = action.payload; // addStudents => preStudenst
     },
+    resetListStudent: (state,action) => {
+      state.preStudent = []
+    }
   },
 });

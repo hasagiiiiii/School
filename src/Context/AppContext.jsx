@@ -9,7 +9,6 @@ const AppProvider = ({ children }) => {
   const [teachers, setTeacher] = React.useState([]); // GET Data is Fetch Api Teacher
   const [khoa, setKhoa] = React.useState([]); // GET Data is Fetch Api Khoa
   const [listClass, setListClass] = React.useState([1]); // GET Data is Fetch Api ALL Class
-  const {isLogin} = React.useContext(AuthContext)
   const columns = [
     { title: "MSV", dataIndex: "id_Student", key: "id_Student" },
     { title: "FullName", dataIndex: "fullName", key: "fullName" },
@@ -51,11 +50,6 @@ const AppProvider = ({ children }) => {
     window.onscroll = () => {};
   };
   {/* <---------------------/START FECTH_API\----------------------------> */}
-  React.useEffect(() => {
-   if(Service.getTokenCookies()){
-    FETCH_API.fetchAPIV1GET_Authoriez("teacher", setTeacher) // Get all teacher
-   } 
-  }, []);
   return (
     <AppContext.Provider
       value={{

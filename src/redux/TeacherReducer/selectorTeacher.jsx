@@ -1,0 +1,1 @@
+export const ClassSubject = state => state.ClassSubjectReducer.ClassSubject

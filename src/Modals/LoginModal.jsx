@@ -1,20 +1,20 @@
 import { Button, Form, Input, Modal } from "antd";
 import React from "react";
-import { AppContext } from "../Context/AppContext";
 import { useDispatch } from "react-redux";
-import LoginReducer from "../redux/LoginReducer";
 import {useNavigate } from "react-router-dom";
 import { AuthContext } from "../Context/AuthProvider";
-
+import AuthReducer from "../redux/AuthReducer";
+import LoginReducer from "../redux/LoginReducer";
+import { ActiveModalContext } from "../Context/ActiveModal";
 const LoginModal = () => {
   const [form] = Form.useForm();
-  const { open, setOpen } = React.useContext(AppContext);
+  const {setLoading} = React.useContext(AuthContext)
+  const {isOpenLogin, setIsOpenLogin} = React.useContext(ActiveModalContext)
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const {setLogin} = React.useContext(AuthContext)
   const handleLogin = async () => {
     try {
-      await fetch(`${process.env.REACT_APP_URL_SEVER}/api/v1/login`, {
+      await fetch(`${process.env.REACT_APP_URL_SEVER}/api/v1.0/auth/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -24,30 +24,26 @@ const LoginModal = () => {
       })
         .then((res) => res.json())
         .then((data) => {
-          document.cookie = `access_token = ${data.access_Token};Max-Age=43200`;
-          document.cookie = `refesh_Token = ${data.refesh_Token};`
-          document.cookie = `Info = ${JSON.stringify(data.info)}`
-          window.location.reload();
-          setLogin(true)
-          return dispatch(LoginReducer.actions.login(data));
+          dispatch(AuthReducer.actions.setLogin(true));
+          setLoading(true)
         });
       navigate("/");
     } catch (err) {
       console.log(err);
     }
     form.resetFields();
-    setOpen(false);
+    setIsOpenLogin(false);
   };
   const handleCancel = () => {
-    setOpen(false);
+    setIsOpenLogin(false);
     form.resetFields();
   };
   return (
     <Modal
       title="Login"
       width={500}
-      open={open}
-      onOk={() => setOpen(false)}
+      open={isOpenLogin}
+      onOk={() => setIsOpenLogin(false)}
       onCancel={handleCancel}
       footer={null}
     >

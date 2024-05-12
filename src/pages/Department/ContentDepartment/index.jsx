@@ -23,13 +23,11 @@ const ContentDepartment = () => {
   const [loading, setLoading] = React.useState(false);
   const listStudent = useSelector(StudentsFilter);
   // start fetch API Get All Student
-  React.useMemo(() => {
+  React.useEffect(() => {
     try {
-      fetch(`${process.env.REACT_APP_URL_SEVER}/api/v1/student`, {
+      fetch(`${process.env.REACT_APP_URL_SEVER}/api/v1.0/student`, {
         method: "GET",
-        headers: {
-          Authorization: `Bearer ${Service.getTokenCookies()}`, 
-        },
+        credentials: 'include'
       })
         .then((res) => res.json())
         .then((data) => dispatch(ListStudentReducer.actions.addStudents(data)))

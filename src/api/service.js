@@ -13,6 +13,11 @@ export const Service  = {
     const cookies = document.cookie?.split(";");
     const refeshToken = cookies?.filter(cookie => cookie.includes('refesh_Token'));
     return refeshToken[0]?.split("=")[1];
+  },
+  getInforUser: ()=>{
+    const cookies = document.cookie?.split(";");
+    const Infor = cookies?.filter(cookie => cookie.includes('Info'));
+    return Infor[0]?.split("=")[1];
   }
  
 }

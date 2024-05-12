@@ -5,7 +5,7 @@ export default createSlice({
   initialState: {
     fullName: "",
     Email: "",
-    type:"Class"
+    type:"All"
   },
   reducers: {
     filterSearchName: (state, action) => {

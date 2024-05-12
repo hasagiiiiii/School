@@ -4,23 +4,24 @@ import { Outlet } from "react-router-dom";
 import HeaderCLass from "../../Component/HeaderClass";
 import { AuthContext } from "../../Context/AuthProvider";
 import SideBar from "./Component/SideBar";
+import { useSelector } from "react-redux";
+import { isLogin } from "../../redux/selector";
 
 const Class = () => {
-  const { isLogin,CheckRedirect } = React.useContext(AuthContext); // Check User Login
+  const { CheckRedirect } = React.useContext(AuthContext); // Check User Login
+  const isLog = useSelector(isLogin)
   React.useEffect(() => {
     CheckRedirect();
-  }, [CheckRedirect,isLogin]);
-
+  }, [CheckRedirect,isLog]);
   // if (
   //   !JSON.parse(localStorage.getItem("acces"))?.info?.role_School === "student"
   // ) {
   //   // check xem ROLE của user có đủ thầm quyền hay không
   //   return console.error("Khoong có quyền truy cập");
   // }
-
-  // if (!isLogin) {
-  //   return null;
-  // }
+  if (!isLog) {
+    return null;
+  }
   return (
     <div className="wrapper-class">
       <HeaderCLass />

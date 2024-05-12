@@ -10,5 +10,8 @@ export default createSlice({
       // update data save infor user
       state.data = action.payload;
     },
+    resetLogin : (state,action)=>{
+      state.data = {}
+    }
   },
 });
