@@ -1,26 +1,21 @@
-import { Button, Table } from "antd";
+import { Button, Form, Table } from "antd";
 import React from "react";
 import { IoSearch } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import FilterSearchStudent from "../../../redux/SchoolReducer/FilterSearchStudent";
 import ListStudentReducer from "../../../redux/SchoolReducer/ListStudentReducer";
 import { StudentsFilter } from "../../../redux/selector";
 import { IoMdAdd } from "react-icons/io";
 import { ActiveModalContext } from "../../../Context/ActiveModal";
 import { AppContext } from "../../../Context/AppContext";
-import { Service } from "../../../api/service";
 
 
 
 const ContentDepartment = () => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const {setIsAddClassSubjectModal,setIsOpenAddClassModal} = React.useContext(ActiveModalContext);
   const {columns} = React.useContext(AppContext)
   const [valueInput, setValueInput] = React.useState("");
-  const [selectedRowKeys, setSelectedRowKeys] = React.useState([]);
-  const [loading, setLoading] = React.useState(false);
   const listStudent = useSelector(StudentsFilter);
   // start fetch API Get All Student
   React.useEffect(() => {
@@ -44,23 +39,7 @@ const ContentDepartment = () => {
     setValueInput(value);
   };
 
-  //
-  const start = () => {
-    setLoading(true);
-    // ajax request after empty completing
-    setTimeout(() => {
-      setSelectedRowKeys([]);
-      setLoading(false);
-    }, 1000);
-  };
-  const onSelectChange = (newSelectedRowKeys) => {
-    setSelectedRowKeys(newSelectedRowKeys);
-  };
-  const rowSelection = {
-    selectedRowKeys,
-    onChange: onSelectChange,
-  };
-  const hasSelected = selectedRowKeys.length > 0;
+
   return (
     <div className="w-full ">
 
@@ -93,24 +72,13 @@ const ContentDepartment = () => {
       </div>
       {/* <---------------------/START TALBE\----------------------------> */}
       <div className="w-[90%] mx-auto bg-white rounded-md shadow-lg">
-        <Button
-          type="primary"
-          onClick={start}
-          disabled={!hasSelected}
-          loading={loading}
-          className="!bg-blue-400"
-        >
-          Reload
-        </Button>
         <span
           style={{
             marginLeft: 8,
           }}
         >
-          {hasSelected ? `Selected ${selectedRowKeys.length} items` : ""}
         </span>
         <Table
-          rowSelection={rowSelection}
           dataSource={listStudent?.map((student, index) => ({
             ...student,
             key: index,

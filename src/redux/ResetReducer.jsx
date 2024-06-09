@@ -14,3 +14,7 @@ export const resetAllState = (dispatch)=>{
     dispatch(ListStudentReducer.actions.resetListStudent())
     dispatch(ClassSubjectReducer.actions.resetClassSubject())
 }
+
+export const resetClassSubjectReducer = (dispatch) =>{
+    dispatch(FilterClassReducer.actions.resetFilterClass())
+}

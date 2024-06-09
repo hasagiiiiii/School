@@ -5,13 +5,29 @@ import { GoChecklist } from "react-icons/go";
 import { IoMdHome } from "react-icons/io";
 import { IoSchoolOutline } from "react-icons/io5";
 import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./index.scss";
 import ClassSubjectReducer from "../../../../redux/TeacherReducer/ClassSubjectReducer";
+import FilterClassReducer from "../../../../redux/TeacherReducer/FilterClassReducer";
+import { addDocument } from "../../../../Firebase/serviceFireStore";
+import useFireStore from "../../../../Firebase/useFireStore";
 
 const SideBar = () => {
   const [ClassSubject,setClassSubject]= React.useState([])
+  const [idMonhoc, setIdMonHoc] = React.useState(null)
   const dispatch = useDispatch();
+  const navigate = useNavigate()
+  // Condition
+  const Condition = React.useMemo(
+      () => ({
+        fieldName: "id_MonHoc",
+        operator: "==",
+        compareValue: idMonhoc,
+      }),
+      [idMonhoc]
+    );
+    const chatRoom = useFireStore("chatRooms", Condition);
+
   React.useEffect(()=>{
     try {
       fetch("http://localhost:5071/api/v1.0/monhoc",{
@@ -24,22 +40,26 @@ const SideBar = () => {
     } catch (error) {
       
     }
-  },[])
+  },[dispatch])
   const FilterChange = (value) => {
-    console.log(value)
-  
+    dispatch(FilterClassReducer.actions.fillterValue(value))
+    setIdMonHoc(value.id_MonHoc)
+    if(chatRoom === null || chatRoom.length === 0){
+      addDocument("chatRooms",value)
+    }
+    navigate (`/Class/${value.name_MonHoc?.trim()}`)
   };
   return (
-    <div className="fixed w-64 flex flex-col h-full justify-start border border-solid border-r-slate-200">
-      <div className="w-full ">
+    <div className="fixed w-64 flex flex-col h-full justify-start">
+      <div className="w-64 ">
         <Link
-          className="pl-9 py-4 w-[100%] flex justify-start text-[16px] gap-3 rounded-r-3xl hover:bg-slate-200 ease-in-out duration-200 active:bg-slate-300  "
+          className="pl-9 py-4 w-[90%] flex justify-start text-[16px] gap-3 rounded-r-3xl hover:bg-slate-200 ease-in-out duration-200 active:bg-slate-300  "
           to="/Class"
         >
           <IoMdHome size={20} /> <p>Màn Hình Chính</p>
         </Link>
         <Link
-          className="pl-9 py-4 w-[100%] flex justify-start text-[16px] gap-3 rounded-r-3xl hover:bg-slate-200 ease-in-out duration-200 active:bg-slate-300  "
+          className="pl-9 py-4 w-[90%] flex justify-start text-[16px] gap-3 rounded-r-3xl hover:bg-slate-200 ease-in-out duration-200 active:bg-slate-300  "
           to="/Class/Schedule"
         >
           <CiCalendar size={20} /> <p>Lịch</p>
@@ -55,15 +75,15 @@ const SideBar = () => {
             </p>
           }
         >
-          <Link className="flex items-center text-[18px] justify-start pl-9  text-black w-full py-2 my-3 gap-3 rounded-r-3xl hover:bg-slate-200 ease-in-out duration-200 active:bg-slate-300">
+          <Link className="flex items-center w-[90%] text-[18px] justify-start pl-9  text-black py-3 my-3 gap-3 rounded-r-3xl hover:bg-slate-200 ease-in-out duration-200 active:bg-slate-300">
             <GoChecklist size={20} /> Việc Cần Làm
           </Link>
           {ClassSubject.map((room, index) => (
             <Link
               onClick={() => FilterChange(room)}
-              className="flex items-center justify-start pl-7 w-full py-2 my-3 gap-3 rounded-r-3xl hover:bg-slate-200 ease-in-out duration-200 active:bg-slate-300 "
+              className="flex items-center justify-start pl-7 w-[90%] py-2 my-3 gap-3 rounded-r-3xl hover:bg-slate-200 ease-in-out duration-200 active:bg-slate-300 "
               key={index}
-              to="/Class/"
+              to={`/Class/${room.name_MonHoc?.trim()}`}
             >
               <Avatar src={room.photo_URL}>
                 {room.photo_URL

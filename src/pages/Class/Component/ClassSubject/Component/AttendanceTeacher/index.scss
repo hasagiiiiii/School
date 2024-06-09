@@ -1,0 +1,19 @@
+
+table.Attendance {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+table.Attendance th, table.Attendance td {
+    border: 1px solid black;
+}
+table.Attendance th,table.Attendance td {
+    padding: 8px;
+    text-align: center;
+}
+.header th {
+    text-align: left;
+}
+.highlight {
+    background-color: #f28b82;
+}

@@ -2,7 +2,7 @@ import { Service } from "./service"
 
 export const FETCH_API_Class = {
     AddClass : (value)=>{
-        fetch(`${process.env.REACT_APP_URL_SEVER}/api/v1/class`,{
+        fetch(`${process.env.REACT_APP_URL_SEVER}/api/v1.0/class-school`,{
             method:"POST",
             headers: {
                 "Content-Type": "application/json",

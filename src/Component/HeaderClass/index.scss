@@ -40,16 +40,26 @@
       .logo {
         display: flex;
         align-items: center;
-        &:hover {
-          a {
-            text-decoration: underline;
-            color: rgb(104, 157, 24);
-          }
-        }
         a {
           color: black;
           font-size: 20px;
           padding: 0 5px;
+        }
+        div{
+          &:hover {
+            a.firstlink {
+              text-decoration: underline;
+              color: #689d18;
+            }
+          }
+        }
+        div{
+          &:hover{
+            a.lastLink {
+              text-decoration: underline;
+              color: rgb(104, 157, 24);
+            }
+          }
         }
       }
     }

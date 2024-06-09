@@ -7,7 +7,7 @@ const Department = () => {
           <div className="w-[30%] lg:w-[17%]">
             <SidebarDeparment />
           </div>
-          <div className=" relative z-0 w-[70%] pb-20 lg:w-[83%]  bg-gray-200 h-full">
+          <div className=" relative z-0 w-[70%]  lg:w-[83%]  bg-gray-200 h-full">
             <Outlet />
           </div>
     </div>

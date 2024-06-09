@@ -7,7 +7,10 @@ import { AppContext } from "../../Context/AppContext";
 import Overlay from "../OverLay";
 import "./index.scss";
 import { AuthContext } from "../../Context/AuthProvider";
+import { useSelector } from "react-redux";
+import { StateInfo } from "../../redux/selector";
 const HeadeerRootAffterLogin = () => {
+  const {role_School} = useSelector(StateInfo)
   const [isActive, setIsActive] = React.useState(1);
   const [isDrop, setDrop] = React.useState(false);
   const { isToggle, hanldeDisableScroll } = React.useContext(AppContext);
@@ -66,7 +69,7 @@ const HeadeerRootAffterLogin = () => {
             <Link
               className={isActive === 4 ? "active" : ""}
               onClick={() => setIsActive(4)}
-              to="/Class"
+              to={role_School === 'student' ? "/HomeIndex" :"/Class"}
             >
               School
             </Link>

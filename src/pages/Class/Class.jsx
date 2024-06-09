@@ -29,7 +29,7 @@ const Class = () => {
         <Col className="h-[100vh]" span={4}>
           <SideBar />
         </Col>
-        <Col span={20}>
+        <Col className="border-2 border-solid border-r-slate-200" span={20}>
           <Outlet />
         </Col>
       </Row>

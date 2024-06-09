@@ -1,0 +1,1 @@
+export const ClassSubjectFillter = state => state.ClassReducer.ClassSubject

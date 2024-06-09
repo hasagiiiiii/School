@@ -10,7 +10,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Link, Outlet } from "react-router-dom";
 import { AuthContext } from "../../Context/AuthProvider";
 import { useSelector } from "react-redux";
-import { CalendarRedux, isLogin, state } from "../../redux/selector";
+import { CalendarRedux, isLogin, StateInfo } from "../../redux/selector";
 
 const HomeIndex = () => {
   const { darkMode, setDarkMode } = React.useContext(ActiveModalContext);
@@ -21,7 +21,7 @@ const HomeIndex = () => {
   React.useEffect(() => {
     CheckRedirect();
   }, [CheckRedirect,isLog]);
-  const {image_User , fullName} = useSelector(state)
+  const {image_User , fullName} = useSelector(StateInfo)
   return (
     <div
       style={{ overflow: "hidden" }}

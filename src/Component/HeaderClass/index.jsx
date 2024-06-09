@@ -6,6 +6,9 @@ import { AppContext } from "../../Context/AppContext";
 import Logo from "../../assets/logo.jpg";
 import "./index.scss";
 import { AuthContext } from "../../Context/AuthProvider";
+import { ClassSubject } from "../../redux/TeacherReducer/selectorTeacher";
+import { useDispatch, useSelector } from "react-redux";
+import { resetClassSubjectReducer } from "../../redux/ResetReducer";
 const HeaderCLass = () => {
   const [active, setActive] = React.useState(false);
   const {Logout} = React.useContext(AuthContext)
@@ -13,6 +16,11 @@ const HeaderCLass = () => {
   const handleOpenLogin = () => {
     setActive(false);
   };
+  const dispatch = useDispatch()
+  const handleResetClassSubject = ()=>{
+    resetClassSubjectReducer(dispatch)
+  }
+  const dataClassSubject = useSelector(ClassSubject)
   return (
     <header className="sticky top-0">
       <div className="header-left ">
@@ -21,7 +29,8 @@ const HeaderCLass = () => {
         </div>
         <div className="logo">
           <img src={Logo} width={45} alt="" />
-          <Link to="/Class">Lớp học</Link>
+          <div><Link onClick={()=>handleResetClassSubject()} className="firstlink" to="/Class">Lớp học</Link></div>
+          {dataClassSubject.name_MonHoc ?  <div>/ <Link className="lastLink" to="">{dataClassSubject.name_MonHoc}</Link></div> : ""}
         </div>
       </div>
       <div className="header-right">

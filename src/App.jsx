@@ -26,6 +26,11 @@ import HomeGuest from "./pages/HomeIndex/Component/HomeIndex/index.jsx";
 import Calenda from "./pages/HomeIndex/Component/Calendar/index.jsx";
 import CalendaModal from "./Modals/CalendaModal.jsx";
 import { RegisterModal } from "./Modals/RegisterModal.jsx";
+import OverviewClassSubject from "./pages/Class/Component/ClassSubject/OverviewClassSubject.jsx";
+import News from "./pages/Class/Component/ClassSubject/Component/News.jsx";
+import Chat from "./pages/Class/Component/ClassSubject/Component/Chat.jsx";
+import OverViewClassSubjectStudent from "./pages/HomeIndex/Component/ClassSubjectStudent/OverViewClassSubjectStudent.jsx";
+import Attendance from "./pages/Class/Component/ClassSubject/Component/AttendanceTeacher/Attendance.jsx";
 const App = () => {
   return (
     <BrowserRouter basename="">
@@ -43,6 +48,11 @@ const App = () => {
                     <Route path="/Class" element={<Class />}>
                       <Route index element={<Table />} />
                       <Route path="/Class/Schedule" element={<Schedule/>} />
+                      <Route path="/Class/:subjectID" element={<OverviewClassSubject/>}>
+                        <Route  index element={<News/>} />
+                        <Route path="/Class/:subjectID/Chat" element={<Chat/>} />
+                        <Route path="/Class/:subjectID/Attendance" element={<Attendance/>} />
+                      </Route>
                     </Route>
                     <Route path="/Department" element={<Department />}>
                       <Route index element={<OverView/>} />
@@ -52,6 +62,9 @@ const App = () => {
                     <Route path="/HomeIndex" element={<HomeIndex/>}>
                       <Route index element={<HomeGuest/>} />
                       <Route path="/HomeIndex/Calender" element={<Calenda/>} />
+                      <Route path="/HomeIndex/:subject" element={<OverViewClassSubjectStudent/>}>
+
+                      </Route>
                     </Route>
                   </Routes>
 

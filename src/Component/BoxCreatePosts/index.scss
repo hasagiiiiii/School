@@ -1,0 +1,29 @@
+.custom-quill {
+    display: flex;
+    flex-direction: column-reverse;
+    margin-top: 10px;
+}
+.custom-quill .ql-toolbar {
+    background-color: #f3f3f3;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    border-bottom: none; /* Loại bỏ đường viền phía dưới */
+}
+
+.custom-quill .ql-container {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    border-bottom-left-radius: 0; /* Điều chỉnh bán kính bo góc */
+    border-bottom-right-radius: 0; /* Điều chỉnh bán kính bo góc */
+}
+
+.custom-quill .ql-editor {
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    height: 300px;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-bottom-left-radius: 4px; /* Điều chỉnh bán kính bo góc */
+    border-bottom-right-radius: 4px; /* Điều chỉnh bán kính bo góc */
+}

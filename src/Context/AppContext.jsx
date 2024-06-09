@@ -44,7 +44,9 @@ const AppProvider = ({ children }) => {
 
   };
   // Finish DisableScroll
-
+  React.useEffect(()=>{
+    FETCH_API.fetchAPIV1GET_Authoriez('teacher',setTeacher)
+  },[])
   const handleEnabaleScroll = () => {
     setIstoggle(false);
     window.onscroll = () => {};

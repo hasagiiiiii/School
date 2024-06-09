@@ -23,7 +23,7 @@ const AuthProvider = ({ children }) => {
       fetch("http://localhost:5071/api/v1.0/auth/logout", {
         method: "DELETE",
         credentials: 'include'
-      }).then((res) => console.log(res));
+      }).catch(error=>console.log(error));
     } catch (error) {
       console.log(error);
     }

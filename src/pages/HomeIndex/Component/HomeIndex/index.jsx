@@ -2,7 +2,72 @@ import { Avatar } from "antd";
 import React from "react";
 import "./index.scss"
 import Messages from "../../../../Component/Mesagess";
+import { Link } from "react-router-dom";
+import ClassSubjectStudent from "../../../../redux/StudentReducer/ClassSubjectStudent";
+import { useDispatch } from "react-redux";
+import ClassReducer from "../../../../redux/StudentReducer/ClassReducer";
+import { addDocument } from "../../../../Firebase/serviceFireStore";
+import useFireStore from "../../../../Firebase/useFireStore";
+import * as signalR from '@microsoft/signalr';
 const HomeGuest = () => {
+  const [listclassSbujectStudent , setClassSubjectStudent] = React.useState([])
+  const [idMonhoc, setIdMonHoc] = React.useState(null)
+  const dispatch = useDispatch()
+  console.log(listclassSbujectStudent)
+  React.useEffect(()=>{
+    try {
+      fetch("http://localhost:5071/api/v1.0/monhoc",{
+        method:"GET",
+        credentials: 'include'
+      }).then(res=>res.json()).then(data=>{
+         dispatch( ClassSubjectStudent.actions.addClassSubjectStudent(data))
+        setClassSubjectStudent(data)
+      })
+    } catch (error) {
+      
+    }
+    // end call api
+
+    const connection = new signalR.HubConnectionBuilder()
+          .withUrl("http://localhost:5071/notificationHub-monhoc")
+          .build();
+
+      connection.on("ReceiveNotificationMonHoc", function (obj) {
+          console.log(obj)
+           setClassSubjectStudent(pre=>([...pre,obj]))// message nhận được từ server
+      });
+
+      connection.start()
+          .then(function () {
+              console.log("Connected to hub!");
+          })
+          .catch(function (err) {
+              console.error(err.toString());
+          });
+
+      return () => {
+          connection.stop();
+      };
+
+
+  },[dispatch])
+
+  const Condition = React.useMemo(
+    () => ({
+      fieldName: "id_MonHoc",
+      operator: "==",
+      compareValue: idMonhoc,
+    }),
+    [idMonhoc]
+  );
+  const chatRoom = useFireStore("chatRooms", Condition);
+  const hanldeFillterChangeClassSubject = (value)=>{
+    dispatch(ClassReducer.actions.addClass(value))
+    setIdMonHoc(value.id_MonHoc)
+    if(chatRoom === null || chatRoom.length === 0){
+      addDocument("chatRooms",value)
+    }
+  }
   return (
     <div className="mt-5 flex mb-[100px]">
       <div className="left-content mr-4 w-full lg:w-2/3 xl:w-2/3 bg-white rounded-xl p-6">
@@ -26,136 +91,29 @@ const HomeGuest = () => {
           </div>
         </div>
         <div className="list-classSubject flex flex-wrap gap-5 p-5 items-center">
-          <div className="ClassSubject text-center h-[150px] bg-purple-400 flex flex-col shadow-md w-[200px] rounded-xl p-3 flex-shrink flex-grow">
-            <div className="name">Ai Tri Tue Nhan Tao</div>
-            <div>Teacher</div>
-            <input type="range" min={0} max={100} disabled  className=" mt-4"  name="" id="" />
-            <div className="flex mt-5 justify-between">
-              <div className="group-avatar">
-                <Avatar.Group size="small" maxCount={2}>
-                  <Avatar>T</Avatar>
-                  <Avatar>M</Avatar>
-                  <Avatar>D</Avatar>
-                </Avatar.Group>
-              </div>
-              <button>heslo</button>
-            </div>
-          </div>
-          <div className="ClassSubject text-center h-[150px] bg-purple-400 flex flex-col shadow-md w-[200px] rounded-xl p-3 flex-shrink flex-grow">
-            <div className="name">Ai Tri Tue Nhan Tao</div>
-            <div>Teacher</div>
-            <input type="range" min={0} max={100} disabled  className=" mt-4"  name="" id="" />
-            <div className="flex mt-5 justify-between">
-              <div className="group-avatar">
-                <Avatar.Group size="small" maxCount={2}>
-                  <Avatar>T</Avatar>
-                  <Avatar>M</Avatar>
-                  <Avatar>D</Avatar>
-                </Avatar.Group>
-              </div>
-              <button>heslo</button>
-            </div>
-          </div>
-          <div className="ClassSubject text-center h-[150px] bg-purple-400 flex flex-col shadow-md w-[200px] rounded-xl p-3 flex-shrink flex-grow">
-            <div className="name">Ai Tri Tue Nhan Tao</div>
-            <div>Teacher</div>
-            <input type="range" min={0} max={100} disabled  className=" mt-4"  name="" id="" />
-            <div className="flex mt-5 justify-between">
-              <div className="group-avatar">
-                <Avatar.Group size="small" maxCount={2}>
-                  <Avatar>T</Avatar>
-                  <Avatar>M</Avatar>
-                  <Avatar>D</Avatar>
-                </Avatar.Group>
-              </div>
-              <button>heslo</button>
-            </div>
-          </div>
-          <div className="ClassSubject text-center h-[150px] bg-purple-400 flex flex-col shadow-md w-[200px] rounded-xl p-3 flex-shrink flex-grow">
-            <div className="name">Ai Tri Tue Nhan Tao</div>
-            <div>Teacher</div>
-            <input type="range" min={0} max={100} disabled  className=" mt-4"  name="" id="" />
-            <div className="flex mt-5 justify-between">
-              <div className="group-avatar">
-                <Avatar.Group size="small" maxCount={2}>
-                  <Avatar>T</Avatar>
-                  <Avatar>M</Avatar>
-                  <Avatar>D</Avatar>
-                </Avatar.Group>
-              </div>
-              <button>heslo</button>
-            </div>
-          </div>
-          <div className="ClassSubject text-center h-[150px] bg-gray-300 flex flex-col w-[250px] rounded-xl p-3 flex-shrink flex-grow">
-            <div className="name">PHP</div>
-            <div>Teacher</div>
-            <input type="range" min={0} max={100} disabled value={20}  name="" id="" />
-            <div>
-              <div className="group-avatar">
-              <Avatar.Group size="small" maxCount={2}>
-                  <Avatar>T</Avatar>
-                  <Avatar>M</Avatar>
-                  <Avatar>D</Avatar>
-                </Avatar.Group>
-              </div>
-              <button>heslo</button>
-            </div>
-          </div>
-          <div className="ClassSubject text-center h-[150px] bg-gray-300 flex flex-col w-[250px] rounded-xl p-3 flex-shrink flex-grow">
-            <div className="name">Web Cơ Bản</div>
-            <div>Teacher</div>
-            <input type="range" disabled name="" id="" />
-            <div>
-              <div className="group-avatar">
-              <Avatar.Group size="small" maxCount={2}>
-                  <Avatar>T</Avatar>
-                  <Avatar>M</Avatar>
-                  <Avatar>D</Avatar>
-                  <Avatar>H</Avatar>
-                </Avatar.Group>
-              </div>
-              <button>heslo</button>
-            </div>
-          </div>
-          <div className="ClassSubject text-center h-[150px] bg-gray-300 flex flex-col w-[250px] rounded-xl p-3 flex-shrink flex-grow">
-            <div className="name">Kiểm Thử</div>
-            <div>Teacher</div>
-            <input type="range" disabled name="" id="" />
-            <div>
-              <div className="group-avatar"></div>
-              <button>heslo</button>
-            </div>
-          </div>
-          <div className="ClassSubject text-center h-[150px] bg-gray-300 flex flex-col w-[250px] rounded-xl p-3 flex-shrink flex-grow">
-            <div className="name">Tán Người Yêu Cux</div>
-            <div>Teacher</div>
-            <input type="range" disabled name="" id="" />
-            <div>
-              <div className="group-avatar">
-              <Avatar.Group size="small" maxCount={2}>
-                  <Avatar>T</Avatar>
-                  <Avatar>M</Avatar>
-                  <Avatar>D</Avatar>
-                </Avatar.Group>
-              </div>
-              <button>heslo</button>
-            </div>
-          </div>
-          <div className="ClassSubject text-center h-[150px] bg-gray-300 flex flex-col w-[250px] rounded-xl p-3 flex-shrink flex-grow">
-            <div className="name">DỊch Thuật</div>
-            <div>Teacher</div>
-            <input type="range" disabled name="" id="" />
-            <div>
-              <div className="group-avatar">
-              <Avatar.Group size="small" maxCount={2}>
-                  <Avatar>T</Avatar>
-                  <Avatar>M</Avatar>
-                  <Avatar>D</Avatar>
-                </Avatar.Group>
-              </div>
-              <button>heslo</button>
-            </div>
-          </div>
+          {
+            listclassSbujectStudent.map((item)=>{
+              return(
+                <Link key={item.id_MonHoc} to={`${item.name_MonHoc}`} onClick={(e)=>{hanldeFillterChangeClassSubject(item)}} className="ClassSubject cursor-pointer text-center h-[150px] bg-purple-400 flex flex-col shadow-md w-[200px] rounded-xl p-3 flex-shrink flex-grow">
+                  <div className="name">{item.name_MonHoc}</div>
+                  <div>{item.giangvien.fullName}</div>
+                  <input type="range" min={0} max={100} disabled  className=" mt-4"  name="" id="" />
+                  <div className="flex mt-5 justify-between">
+                    <div className="group-avatar">
+                      <Avatar.Group size="small" maxCount={2}>
+                        {item.student.map((user)=>(
+                          <Avatar key={user.id_Student}>{user.fullName?.charAt(0).toUpperCase()}</Avatar>
+                        ))}
+                      </Avatar.Group>
+                    </div>
+                    <button>heslo</button>
+                  </div>
+                </Link>
+  
+                )
+            })
+          }
+          
         </div>
       </div>
       <div className="right-content hidden lg:block lg:w-1/3 h-max mx-10 right-0 bg-white rounded-xl p-6">
