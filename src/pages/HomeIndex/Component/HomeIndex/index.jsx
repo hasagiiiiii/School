@@ -13,7 +13,6 @@ const HomeGuest = () => {
   const [listclassSbujectStudent , setClassSubjectStudent] = React.useState([])
   const [idMonhoc, setIdMonHoc] = React.useState(null)
   const dispatch = useDispatch()
-  console.log(listclassSbujectStudent)
   React.useEffect(()=>{
     try {
       fetch("http://localhost:5071/api/v1.0/monhoc",{

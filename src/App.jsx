@@ -31,6 +31,7 @@ import News from "./pages/Class/Component/ClassSubject/Component/News.jsx";
 import Chat from "./pages/Class/Component/ClassSubject/Component/Chat.jsx";
 import OverViewClassSubjectStudent from "./pages/HomeIndex/Component/ClassSubjectStudent/OverViewClassSubjectStudent.jsx";
 import Attendance from "./pages/Class/Component/ClassSubject/Component/AttendanceTeacher/Attendance.jsx";
+import ProfileStudent from "./pages/HomeIndex/Component/ProfileStudent/index.jsx";
 const App = () => {
   return (
     <BrowserRouter basename="">
@@ -62,8 +63,8 @@ const App = () => {
                     <Route path="/HomeIndex" element={<HomeIndex/>}>
                       <Route index element={<HomeGuest/>} />
                       <Route path="/HomeIndex/Calender" element={<Calenda/>} />
+                      <Route path="/HomeIndex/Profile" element={<ProfileStudent/>}/>
                       <Route path="/HomeIndex/:subject" element={<OverViewClassSubjectStudent/>}>
-
                       </Route>
                     </Route>
                   </Routes>

@@ -214,7 +214,7 @@ const HomeIndex = () => {
                   ? "flex items-center justify-center text-center  w-10 h-10 rounded-full text-white"
                   : "flex items-center justify-center text-center w-10 h-10 rounded-full text-black"
               }
-              to="#"
+              to="Profile"
             >
               <IoSettings size={25} />
             </Link>

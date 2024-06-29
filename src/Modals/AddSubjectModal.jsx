@@ -115,7 +115,7 @@ const AddSubjectModal = () => {
     // cập nhật lại state
     setFormValue((pre) => ({
       ...pre,
-      lichHocs: Array.from({ length: countCalendar }, (_, index) => ({
+      lichHocs: Array.from({ length: countCalendar }, (_, index) => ({ // update lại lịch học theo số lượng buổi học (countCalendar)
         ...pre.lichHocs[index],
         thoiGianBatDau: pre.lichHocs[index]?.thoiGianBatDau || "",
         thoiGianKetThuc: pre.lichHocs[index]?.thoiGianKetThuc || "",
@@ -181,9 +181,10 @@ const AddSubjectModal = () => {
       credentials: 'include',
       body: JSON.stringify(formValueSubmit)
     }).then(res=>res.json()).then(data=>console.log(data))
-    // setSelectedRowKeys([]);
-    // setCountCalendar(0);
-    // form.resetFields();
+    setSelectedRowKeys([]);
+    setCountCalendar(0);
+    form.resetFields();
+    setFormValue(formValueAddClassSubject);
   };
   const handleOnchangeInput = (value) => {
     dispatch(FilterSearchStudent.actions.filterSearchName(value));

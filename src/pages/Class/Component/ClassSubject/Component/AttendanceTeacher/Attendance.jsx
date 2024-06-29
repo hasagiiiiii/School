@@ -2,11 +2,24 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import { ClassSubject } from '../../../../../../redux/TeacherReducer/selectorTeacher'
 import "./index.scss"
+import { FETCH_API_Class } from '../../../../../../api/FetchAPIClass'
 const Attendance = () => {
-    const monhoc = useSelector(ClassSubject)
-    console.log(monhoc.lichhoc)
-  return (
-    <div className='w-full flex items-center flex-col justify-center'>
+    const {id_MonHoc,lichhoc} = useSelector(ClassSubject)
+    const [Attendances,setAttendances] = React.useState([])
+
+    React.useEffect(()=>{
+        FETCH_API_Class.GetAttendance(id_MonHoc,setAttendances)
+    },[id_MonHoc])
+    console.table(lichhoc,Attendances)
+    return (
+    <div className='w-full relative h-screen-minus-300 flex items-center flex-col justify-center bor'>
+        <ul className='fixed z-30 pl-4  bg-slate-200 py-4 translate-x-32 bottom-0 flex items-center w-full h-16'>
+            {lichhoc.map((item,index)=>{
+                const dayformat = new Date()
+                let day = dayformat.toUTCString(item.thoiGianBatDau)
+               return( <li key={index} className='border shadow-neumorphismButton rounded-2xl mx-4 py-2 px-2'>{day}</li>)
+            })}
+        </ul>
         <h2>SỔ ĐIỂM DANH THEO DÕI CHUYÊN CẦN SINH VIÊN</h2>
     <p>Học phần: Trí tuệ nhân tạo AI</p>
     <p>Lớp: K21CNT1</p>
