@@ -42,7 +42,7 @@ const SideBar = () => {
     }
   },[dispatch])
 
-  
+  console.log(ClassSubject)
   const FilterChange = (value) => {
     dispatch(FilterClassReducer.actions.fillterValue(value))
     setIdMonHoc(value.id_MonHoc)

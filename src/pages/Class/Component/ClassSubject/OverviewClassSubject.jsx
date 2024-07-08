@@ -13,7 +13,7 @@ const OverviewClassSubject = () => {
             <Link style={isActive ===1 ? {color:"#689d18"}:{}} to="">Bảng tin</Link>
           </li>
           <li onClick={()=>setIsActive(2)} className={isActive===2? "relative before:w-full before:absolute before:h-1 before:rounded-sm before:bg-[#689d18] before:-bottom-3":""}>
-            <Link style={isActive ===2 ? {color:"#689d18"}:{}} to="BaiTapTrenLop">Bài tập trên lớp</Link>
+            <Link style={isActive ===2 ? {color:"#689d18"}:{}} to="Quest">Bài tập trên lớp</Link>
           </li>
           <li onClick={()=>setIsActive(3)} className={isActive===3? "relative before:w-full before:absolute before:h-1 before:rounded-sm before:bg-[#689d18] before:-bottom-3":""}>
             <Link style={isActive ===3 ? {color:"#689d18"}:{}} to="Members">Mọi Người</Link>

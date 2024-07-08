@@ -32,6 +32,8 @@ import Chat from "./pages/Class/Component/ClassSubject/Component/Chat.jsx";
 import OverViewClassSubjectStudent from "./pages/HomeIndex/Component/ClassSubjectStudent/OverViewClassSubjectStudent.jsx";
 import Attendance from "./pages/Class/Component/ClassSubject/Component/AttendanceTeacher/Attendance.jsx";
 import ProfileStudent from "./pages/HomeIndex/Component/ProfileStudent/index.jsx";
+import UserClassubject from "./pages/Class/Component/ClassSubject/Component/UserClassubject/UserClassubject.jsx";
+import Exceries from "./pages/Class/Component/ClassSubject/Component/Excercies/Exceries.jsx";
 const App = () => {
   return (
     <BrowserRouter basename="">
@@ -53,6 +55,9 @@ const App = () => {
                         <Route  index element={<News/>} />
                         <Route path="/Class/:subjectID/Chat" element={<Chat/>} />
                         <Route path="/Class/:subjectID/Attendance" element={<Attendance/>} />
+                        <Route path="/Class/:subjectID/Members" element={<UserClassubject/>} />
+                        <Route path="/Class/:subjectID/Quest" element={<Exceries/>} />
+
                       </Route>
                     </Route>
                     <Route path="/Department" element={<Department />}>
