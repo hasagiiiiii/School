@@ -4,71 +4,71 @@ import { FETCH_API } from '../../../../api/fetchAPI';
 import { ActiveModalContext } from '../../../../Context/ActiveModal';
 import { useDispatch } from 'react-redux';
 import Calendar from '../../../../redux/SchoolReducer/Calendar';
-const lichmonData = [
-  {
-      "date": "2024-03-20",
-      "lichmon": [
-          {
-              "teacher": "gv1cntt@ntu.edu.vn",
-              "monHoc": "Lập trình C#",
-              "id_LichHoc": 26,
-              "thoiGianBatDau": "08:00:00",
-              "thoiGianKetThuc": "09:30:00",
-              "phonghoc": "P205A"
-          },
-          {
-              "teacher": "gv1cntt@ntu.edu.vn",
-              "monHoc": "Lập trình PHP",
-              "id_LichHoc": 27,
-              "thoiGianBatDau": "09:35:00",
-              "thoiGianKetThuc": "11:00:00",
-              "phonghoc": "P205A"
-          }
-      ]
-  },
-  {
-      "date": "2024-03-22",
-      "lichmon": [
-          {
-              "teacher": "gv1cntt@ntu.edu.vn",
-              "monHoc": "Lập trình C#",
-              "id_LichHoc": 28,
-              "thoiGianBatDau": "08:00:00",
-              "thoiGianKetThuc": "09:30:00",
-              "phonghoc": "P205B"
-          },
-          {
-              "teacher": "gv1cntt@ntu.edu.vn",
-              "monHoc": "Lập trình PHP",
-              "id_LichHoc": 29,
-              "thoiGianBatDau": "09:35:00",
-              "thoiGianKetThuc": "11:00:00",
-              "phonghoc": "P205B"
-          }
-      ]
-  },
-  {
-      "date": "2024-03-24",
-      "lichmon": [
-          {
-              "teacher": "gv1cntt@ntu.edu.vn",
-              "monHoc": "Lập trình C#",
-              "id_LichHoc": 30,
-              "thoiGianBatDau": "08:00:00",
-              "thoiGianKetThuc": "09:30:00",
-              "phonghoc": "P208"
-          },
-          {
-              "teacher": "gv1cntt@ntu.edu.vn",
-              "monHoc": "Lập trình PHP",
-              "id_LichHoc": 31,
-              "thoiGianBatDau": "09:35:00",
-              "thoiGianKetThuc": "11:00:00",
-              "phonghoc": "P208"
-          }
-      ]
-  }
-];
+// const lichmonData = [
+//   {
+//       "date": "2024-03-20",
+//       "lichmon": [
+//           {
+//               "teacher": "gv1cntt@ntu.edu.vn",
+//               "monHoc": "Lập trình C#",
+//               "id_LichHoc": 26,
+//               "thoiGianBatDau": "08:00:00",
+//               "thoiGianKetThuc": "09:30:00",
+//               "phonghoc": "P205A"
+//           },
+//           {
+//               "teacher": "gv1cntt@ntu.edu.vn",
+//               "monHoc": "Lập trình PHP",
+//               "id_LichHoc": 27,
+//               "thoiGianBatDau": "09:35:00",
+//               "thoiGianKetThuc": "11:00:00",
+//               "phonghoc": "P205A"
+//           }
+//       ]
+//   },
+//   {
+//       "date": "2024-03-22",
+//       "lichmon": [
+//           {
+//               "teacher": "gv1cntt@ntu.edu.vn",
+//               "monHoc": "Lập trình C#",
+//               "id_LichHoc": 28,
+//               "thoiGianBatDau": "08:00:00",
+//               "thoiGianKetThuc": "09:30:00",
+//               "phonghoc": "P205B"
+//           },
+//           {
+//               "teacher": "gv1cntt@ntu.edu.vn",
+//               "monHoc": "Lập trình PHP",
+//               "id_LichHoc": 29,
+//               "thoiGianBatDau": "09:35:00",
+//               "thoiGianKetThuc": "11:00:00",
+//               "phonghoc": "P205B"
+//           }
+//       ]
+//   },
+//   {
+//       "date": "2024-03-24",
+//       "lichmon": [
+//           {
+//               "teacher": "gv1cntt@ntu.edu.vn",
+//               "monHoc": "Lập trình C#",
+//               "id_LichHoc": 30,
+//               "thoiGianBatDau": "08:00:00",
+//               "thoiGianKetThuc": "09:30:00",
+//               "phonghoc": "P208"
+//           },
+//           {
+//               "teacher": "gv1cntt@ntu.edu.vn",
+//               "monHoc": "Lập trình PHP",
+//               "id_LichHoc": 31,
+//               "thoiGianBatDau": "09:35:00",
+//               "thoiGianKetThuc": "11:00:00",
+//               "phonghoc": "P208"
+//           }
+//       ]
+//   }
+// ];
 
 
 const Calenda = () => {

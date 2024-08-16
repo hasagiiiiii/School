@@ -29,15 +29,21 @@ import { RegisterModal } from "./Modals/RegisterModal.jsx";
 import OverviewClassSubject from "./pages/Class/Component/ClassSubject/OverviewClassSubject.jsx";
 import News from "./pages/Class/Component/ClassSubject/Component/News.jsx";
 import Chat from "./pages/Class/Component/ClassSubject/Component/Chat.jsx";
-import OverViewClassSubjectStudent from "./pages/HomeIndex/Component/ClassSubjectStudent/OverViewClassSubjectStudent.jsx";
+import OverViewClassSubjectStudent from "./pages/HomeIndex/Component/ClassSubjectStudent/Component/OverView/OverViewClassSubjectStudent.jsx"
 import Attendance from "./pages/Class/Component/ClassSubject/Component/AttendanceTeacher/Attendance.jsx";
 import ProfileStudent from "./pages/HomeIndex/Component/ProfileStudent/index.jsx";
 import UserClassubject from "./pages/Class/Component/ClassSubject/Component/UserClassubject/UserClassubject.jsx";
 import Exceries from "./pages/Class/Component/ClassSubject/Component/Excercies/Exceries.jsx";
+import VideoCallContextProvider from "./Context/VideoCallContext.jsx";
+import CallVideoModal from "./Modals/CallVideoModal.jsx";
+import JoinVideoCallModal from "./Modals/JoinVideoCallModal.jsx";
+import SubmitExcercise from "./pages/HomeIndex/Component/ClassSubjectStudent/Component/SubmitExcercise/SubmitExcercise.jsx";
+import LayoutStudent from "./pages/HomeIndex/Component/ClassSubjectStudent/index.jsx";
 const App = () => {
   return (
     <BrowserRouter basename="">
       <AuthProvider>
+        <VideoCallContextProvider>
         <AppProvider>
           <ImgConTextProvider>
             <ContryProvider>
@@ -69,9 +75,12 @@ const App = () => {
                       <Route index element={<HomeGuest/>} />
                       <Route path="/HomeIndex/Calender" element={<Calenda/>} />
                       <Route path="/HomeIndex/Profile" element={<ProfileStudent/>}/>
-                      <Route path="/HomeIndex/:subject" element={<OverViewClassSubjectStudent/>}>
+                      <Route path="/HomeIndex/:subject" element={<LayoutStudent/>}>
+                       <Route index element={<OverViewClassSubjectStudent/>} />
+                       <Route path="/HomeIndex/:subject/BaiTap" element={<SubmitExcercise/>}/> 
                       </Route>
                     </Route>
+                    {/* <Route path="/VideoCall" element={<CallVideoModal />} /> */}
                   </Routes>
 
                   {/*  Start Modal */}
@@ -81,6 +90,8 @@ const App = () => {
                   <AddSubjectModal/>
                   <CalendaModal />
                   <Loading/>
+                  <CallVideoModal />
+                  <JoinVideoCallModal />
                   {/* Finish Modal */}
                   </ActiveModalProvider>
                 </ClassRoomListProvider>
@@ -88,6 +99,7 @@ const App = () => {
             </ContryProvider>
           </ImgConTextProvider>
         </AppProvider>
+        </VideoCallContextProvider>
       </AuthProvider>
       {/* Class */}
     </BrowserRouter>

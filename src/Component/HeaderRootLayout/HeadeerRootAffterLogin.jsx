@@ -15,7 +15,16 @@ const HeadeerRootAffterLogin = () => {
   const [isDrop, setDrop] = React.useState(false);
   const { isToggle, hanldeDisableScroll } = React.useContext(AppContext);
   const { Logout } = React.useContext(AuthContext);
-
+  const [navigator,setNavigator] = React.useState("")
+  React.useEffect(()=>{
+    if(role_School === "student"){
+      setNavigator("/HomeIndex")
+    }else if(role_School ==="teacher"){
+      setNavigator("/Class")
+    }else{
+      setNavigator("/Department")
+    }
+  },[])
   return (
     <div className="wrap-header">
       <header>
@@ -69,7 +78,7 @@ const HeadeerRootAffterLogin = () => {
             <Link
               className={isActive === 4 ? "active" : ""}
               onClick={() => setIsActive(4)}
-              to={role_School === 'student' ? "/HomeIndex" :"/Class"}
+              to={navigator}
             >
               School
             </Link>

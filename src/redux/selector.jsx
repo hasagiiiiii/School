@@ -32,13 +32,14 @@ export const StudentsFilter = createSelector(
   FilterSearchStudent,
   (listStudent, valueInput) => {
     if (valueInput !== "") {
-      const FielValue = valueInput.split(""); // tách ký tự valueInput ra thành mảng
+      const FielValue = valueInput.trim().split(""); // tách ký tự valueInput ra thành mảng
       const StudentsCopy = [...listStudent]; // copy lại listStudent
-      return StudentsCopy.filter((std) => {
+      const s= StudentsCopy.filter((std) => {
         return FielValue.every((value) => {
           return std.user_Name.includes(value) || std.fullName.includes(value);
         }); // kiểm tra xem Student có user_Name || fullName nào có us giống như vậy không
       });
+      return s
     } else {
       return listStudent;
     }
@@ -52,49 +53,49 @@ export const StudentFillterAddClassSubject = createSelector(
   (listStudent, valueInput, type) => {
     const FielValue = valueInput.split(""); // tách ký tự valueInput ra thành mảng
     const studentCopy = [...listStudent];
-    if (type === "Class") {
-      return studentCopy.filter((std) => {
-        return FielValue.every((value) => {
-          return std.name_Class.includes(value);
+    console.log(valueInput)
+    if(valueInput !== " " || valueInput !== null){
+      if (type === "Class") {
+        console.log("vao day")
+          const s = studentCopy.filter((std) => {
+          return FielValue.every((value) => {
+            return std.name_Class.includes(value);
+          });
         });
-      });
-    }
-    // type === USer_Name
-    if (type === "user_Name") {
-      return studentCopy.filter((std) => {
-        return FielValue.every((value) => {
-          return std.user_Name.includes(value);
+        return s
+      }
+      // type === USer_Name
+      if (type === "user_Name") {
+        const s = studentCopy.filter((std) => {
+          return FielValue.every((value) => {
+            return std.user_Name.includes(value);
+          });
         });
-      });
-    }
-
-    // type === Full Name
-
-    if (type === "fullName") {
-      return studentCopy.filter((std) => {
-        return FielValue.every((value) => {
-          return std.fullName.includes(value);
+        return s
+      }
+  
+      // type === Full Name
+  
+      if (type === "fullName") {
+        const s = studentCopy.filter((std) => {
+          return FielValue.every((value) => {
+            return std.fullName.includes(value);
+          });
         });
-      });
-    }
-
-    // type === USer_Name
-    if (type === "user_Name") {
-      return studentCopy.filter((std) => {
-        return FielValue.every((value) => {
-          return std.user_Name.includes(value);
+        return s
+      }
+  
+      if (type === "All") {
+        const b = studentCopy.filter((std) => {
+          return FielValue.every((value) => {
+            return std.user_Name.includes(value);
+          });
         });
-      });
-    }
-
-    // type === Full Name
-
-    if (type === "fullName") {
-      return studentCopy.filter((std) => {
-        return FielValue.every((value) => {
-          return std.fullName.includes(value);
-        });
-      });
+        return b
+      }
+  
+      // type === Full Name
+  
     }
     return listStudent;
   }

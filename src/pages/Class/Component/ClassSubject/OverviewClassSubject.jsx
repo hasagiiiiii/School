@@ -2,9 +2,17 @@ import React from "react";
 import { Link, Outlet, useParams } from "react-router-dom";
 import { IoChatbubbleOutline } from "react-icons/io5";
 import { Badge } from "antd";
+import { VideoCallContext } from "../../../../Context/VideoCallContext";
+import { ActiveModalContext } from "../../../../Context/ActiveModal";
 const OverviewClassSubject = () => {
   const [isActive,setIsActive] = React.useState(1)
-  
+  const {CreateTokenMeeting} = React.useContext(VideoCallContext)
+  const { setIsOpenCallVideo} = React.useContext(ActiveModalContext)
+
+  const hanldeCreateMeet = ()=>{
+    setIsOpenCallVideo(true)
+    CreateTokenMeeting()
+  }
   return (
     <div>
       <header className="w-full flex justify-between">
@@ -20,6 +28,10 @@ const OverviewClassSubject = () => {
           </li>
           <li onClick={()=>setIsActive(4)} className={isActive===4? "relative before:w-full before:absolute before:h-1 before:rounded-sm before:bg-[#689d18] before:-bottom-3":""}>
             <Link style={isActive ===4 ? {color:"#689d18"}:{}} to="Attendance">Điểm Danh</Link>
+          </li>
+          <li onClick={()=>setIsActive(5)} className={isActive===5? "relative before:w-full before:absolute before:h-1 before:rounded-sm before:bg-[#689d18] before:-bottom-3":""}>
+            <p onClick={()=>hanldeCreateMeet()}>Meet</p>
+            {/* <Link to="/VideoCall" target="_blank" >Meet</Link> */}
           </li>
         </ul>
         <ul>

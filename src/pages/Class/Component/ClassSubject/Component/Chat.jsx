@@ -11,10 +11,16 @@ const Chat = () => {
   const { fullName, user_Name } = useSelector(StateInfo);
   const { id_MonHoc } = useSelector(ClassSubject);
   const [form] = Form.useForm();
+  const inputMessageRef = React.useRef()
   const hanldeCreateMessage = () => {
     const { textArea } = form.getFieldValue();
     addDocument("messages", { textArea, fullName, user_Name, id_MonHoc });
     form.resetFields();
+    if (inputMessageRef?.current) {
+      setTimeout(() => {
+        inputMessageRef.current.focus()
+      });
+    }
   };
   const Condition = React.useMemo(
     () => ({
@@ -56,6 +62,7 @@ const Chat = () => {
         <Form onFinish={hanldeCreateMessage} form={form}>
           <Form.Item name="textArea">
             <Input
+            ref={inputMessageRef}
               style={{width:"1000px"}}
             //   bordered={false}
             size="large"

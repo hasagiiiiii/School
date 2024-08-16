@@ -11,10 +11,12 @@ import ClassSubjectReducer from "../../../../redux/TeacherReducer/ClassSubjectRe
 import FilterClassReducer from "../../../../redux/TeacherReducer/FilterClassReducer";
 import { addDocument } from "../../../../Firebase/serviceFireStore";
 import useFireStore from "../../../../Firebase/useFireStore";
+import { AuthContext } from "../../../../Context/AuthProvider";
 
 const SideBar = () => {
   const [ClassSubject,setClassSubject]= React.useState([])
   const [idMonhoc, setIdMonHoc] = React.useState(null)
+  const {setLoading} = React.useContext(AuthContext)
   const dispatch = useDispatch();
   const navigate = useNavigate()
   // Condition
@@ -42,17 +44,22 @@ const SideBar = () => {
     }
   },[dispatch])
 
-  console.log(ClassSubject)
   const FilterChange = (value) => {
     dispatch(FilterClassReducer.actions.fillterValue(value))
     setIdMonHoc(value.id_MonHoc)
     if(chatRoom === null || chatRoom.length === 0){
-      addDocument("chatRooms",value)
+     try{
+      const ref = addDocument("chatRooms",value)
+      console.log(ref.id)
+     }catch(e){
+      console.log(e)
+     }
     }
-    navigate (`/Class/${value.name_MonHoc?.trim()}`)
+    setLoading(true)
+    navigate (`/Class/${value.name_MonHoc}`)
   };
   return (
-    <div className="fixed w-64 flex flex-col h-full justify-start">
+    <div className="fixed w-64 flex flex-col pb-10 scroll-smooth overflow-scroll h-full justify-start">
       <div className="w-64 ">
         <Link
           className="pl-9 py-4 w-[90%] flex justify-start text-[16px] gap-3 rounded-r-3xl hover:bg-slate-200 ease-in-out duration-200 active:bg-slate-300  "
@@ -83,7 +90,7 @@ const SideBar = () => {
           {ClassSubject.map((room, index) => (
             <Link
               onClick={() => FilterChange(room)}
-              className="flex items-center justify-start pl-7 w-[90%] py-2 my-3 gap-3 rounded-r-3xl hover:bg-slate-200 ease-in-out duration-200 active:bg-slate-300 "
+              className="flex items-center  justify-start pl-7 w-[90%] py-2 my-3 gap-3 rounded-r-3xl hover:bg-slate-200 ease-in-out duration-200 active:bg-slate-300 "
               key={index}
               to={`/Class/${room.name_MonHoc?.trim()}`}
             >

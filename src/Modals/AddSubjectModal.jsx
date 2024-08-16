@@ -17,6 +17,7 @@ import { IoIosSearch } from "react-icons/io";
 import { AppContext } from "../Context/AppContext";
 import FilterSearchStudent from "../redux/SchoolReducer/FilterSearchStudent";
 import { FETCH_API } from "../api/fetchAPI";
+import { AuthContext } from "../Context/AuthProvider";
 const formValueAddClassSubject = {
   monHoc: {
     name_MonHoc: "",
@@ -37,7 +38,7 @@ const formValueAddClassSubject = {
       thoiGianKetThuc: "",
       phonghoc: "",
       phuongPhapHoc: "",
-      tinhTrangBuoiHoc: "",
+      tinhTrangBuoiHoc: "Học bình thường",
     },
   ],
 };
@@ -69,23 +70,24 @@ const AddSubjectModal = () => {
     React.useContext(ActiveModalContext);
   const [statusSubject,setStatusSubject] = React.useState()
   const [formValue, setFormValue] = React.useState(formValueAddClassSubject);
+  const [valueInputSearchStudent,setValueInputSearchStudent] = React.useState('')
   const { teachers, columns } = React.useContext(AppContext);
   const listStudent = useSelector(StudentFillterAddClassSubject);
   const [countCalendar, setCountCalendar] = React.useState(0);
   const [selectedRowKeys, setSelectedRowKeys] = React.useState([]);
   const [form] = Form.useForm();
   const dispatch = useDispatch();
-
+  const {setLoading} = React.useContext(AuthContext)
   React.useEffect(()=>{
     FETCH_API.fetchAPIV1GET_Authoriez("tinhtrangbuoihoc",setStatusSubject)
   },[])
-
   const onCancel = () => {
     setSelectedRowKeys([]);
     setIsAddClassSubjectModal(false);
     setCountCalendar(0);
     form.resetFields();
     setFormValue(formValueAddClassSubject);
+    setValueInputSearchStudent('')
   };
   const hanldeChangeFormValueMonHoc = (valueOrEvent, name) => {
     let nameField;
@@ -121,7 +123,7 @@ const AddSubjectModal = () => {
         thoiGianKetThuc: pre.lichHocs[index]?.thoiGianKetThuc || "",
         phonghoc: pre.lichHocs[index]?.phonghoc || "",
         phuongPhapHoc: pre.lichHocs[index]?.phuongPhapHoc || "",
-        tinhTrangBuoiHoc: pre.lichHocs[index]?.tinhTrangBuoiHoc || "",
+        tinhTrangBuoiHoc: pre.lichHocs[index]?.tinhTrangBuoiHoc || "Học bình thường",
       })),
     }));
   }, [countCalendar, setFormValue]);
@@ -129,7 +131,6 @@ const AddSubjectModal = () => {
   const hanldeChangeFormValueLichHoc = (valueOrEvent, name,index) => {
     let nameField;
     let valueField;
-    console.log(index)
     // Kiểm tra nếu đây là sự kiện từ Input
     if (valueOrEvent && valueOrEvent.target) {
       nameField = valueOrEvent.target.name;
@@ -171,7 +172,6 @@ const AddSubjectModal = () => {
       },
       students: [...selectedRowKeys].map((student)=>({id_Student:student})),
     };
-    console.log(formValueSubmit);
 
     fetch(`${process.env.REACT_APP_URL_SEVER}/api/v1.0/monhoc`,{
       method: "POST",
@@ -185,8 +185,11 @@ const AddSubjectModal = () => {
     setCountCalendar(0);
     form.resetFields();
     setFormValue(formValueAddClassSubject);
+    setLoading(true)
+    setIsAddClassSubjectModal(false)
   };
   const handleOnchangeInput = (value) => {
+    setValueInputSearchStudent(value)
     dispatch(FilterSearchStudent.actions.filterSearchName(value));
   };
 
@@ -205,7 +208,7 @@ const AddSubjectModal = () => {
     <Modal
       onCancel={onCancel}
       footer={null}
-      width={1000}
+      width={1500}
       open={isAddClassSubjectModal}
     >
       <Form form={form} onFinish={onFinish} className="pt-10 px-5">
@@ -273,26 +276,32 @@ const AddSubjectModal = () => {
           ? Array(countCalendar)
               ?.fill(null)
               .map((_, index) => (
-                <div className="" key={index}>
-                  <CustomDatePicker
-                    name="thoiGianBatDau"
-                    onChange={(e) => hanldeChangeFormValueLichHoc(e,null, index)}
-                    value={formValue.lichHocs[index]?.thoiGianBatDau || ""}
-                  />
-                  <CustomDatePicker
-                    name="thoiGianKetThuc"
-                    onChange={(e) => hanldeChangeFormValueLichHoc(e,null, index)}
-                    value={formValue.lichHocs[index]?.thoiGianKetThuc || ""}
-                  />
+                <div className=" border p-3 rounded-xl mt-2" key={index}>
+                 <div className="flex">
+                   <Form.Item label={"Thời gian bắt đầu"}>
+                   <CustomDatePicker
+                      name="thoiGianBatDau"
+                      onChange={(e) => hanldeChangeFormValueLichHoc(e,null, index)}
+                      value={formValue.lichHocs[index]?.thoiGianBatDau || ""}
+                    />
+                   </Form.Item>
+                    <Form.Item label="Thời gian kết thúc">
+                      <CustomDatePicker
+                        name="thoiGianKetThuc"
+                        onChange={(e) => hanldeChangeFormValueLichHoc(e,null, index)}
+                        value={formValue.lichHocs[index]?.thoiGianKetThuc || ""}
+                      />
+                    </Form.Item>
+                 </div>
                   <Input
-                    placeholder="Nhap vao day"
+                    placeholder="Phòng học"
                     name="phonghoc"
                     onChange={(e) => hanldeChangeFormValueLichHoc(e,null, index)}
                     value={formValue.lichHocs[index]?.phonghoc || ""}
                     key={index}
                   />
                   <Input
-                    placeholder="Nhap vao day"
+                    placeholder="Phương Pháp Học"
                     name="phuongPhapHoc"
                     onChange={(e) => hanldeChangeFormValueLichHoc(e,null, index)}
                     value={formValue.lichHocs[index]?.phuongPhapHoc || ""}
@@ -302,7 +311,7 @@ const AddSubjectModal = () => {
                     onChange={(e) => hanldeChangeFormValueLichHoc(e, "tinhTrangBuoiHoc",index)}
                     value={formValue.lichHocs[index]?.tinhTrangBuoiHoc || ""}
                     style={{ width: "100%" }}
-                    defaultValue={statusSubject[0].name}
+                    defaultValue={statusSubject[1]}
                     options={statusSubject.map(item=>({
                       value: item?.name,
                       label: item?.name,
@@ -319,10 +328,11 @@ const AddSubjectModal = () => {
               defaultValue={"Class"}
               options={option}
               onChange={onChangeSelectOption}
-            />{" "}
+            />
             <Input
               size="middle"
               onChange={(e) => handleOnchangeInput(e.target.value)}
+              value={valueInputSearchStudent}
               prefix={<IoIosSearch />}
             />
           </Space.Compact>

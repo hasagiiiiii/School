@@ -39,7 +39,7 @@ const ClassRoomListProvider = ({ children }) => {
             return (<p>{chu_nhiem?.fullName}</p>)
          }
       },
-    { title: "StudentCount", dataIndex: "count_member", key: "count_member" },
+    { title: "StudentCount", dataIndex: "count_student", key: "count_student",render:(_,{count_student})=>(<div className="ml-10">{count_student}</div>) },
     {
       title: "Trạng Thái",
       dataIndex: "tags", 

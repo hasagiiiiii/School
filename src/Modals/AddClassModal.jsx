@@ -1,4 +1,4 @@
-import { Button, Form, Input, Modal, Select, Table } from "antd";
+import { Button, Form, Input, Modal, Table } from "antd";
 import React from "react";
 import { AppContext } from "../Context/AppContext";
 import { ActiveModalContext } from "../Context/ActiveModal";
@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import { StudentsFilter } from "../redux/selector";
 import {DebounceSelect} from "../api/DebounceSelect";
 import { FETCH_API_Class } from "../api/FetchAPIClass";
+import { AuthContext } from "../Context/AuthProvider";
 
 const AddClassModal = () => {
   const { teachers,columns } = React.useContext(AppContext);
@@ -15,12 +16,15 @@ const AddClassModal = () => {
   const [selectedRowKeys, setSelectedRowKeys] = React.useState([]);
   const [teacherSelectedUpdate,setTeacherSelectedUpdate] = React.useState([])
   const [form] = Form.useForm();
+  const {setLoading} = React.useContext(AuthContext)
   const onFinish = () => {
     const FormValue = form.getFieldValue();
     const converStudent =selectedRowKeys.map(student =>({id_Student : student}))
     FETCH_API_Class.AddClass({...FormValue,id_Teacher : FormValue.id_Teacher[0].value,student:[...converStudent]})
     form.resetFields()
+    setLoading(true)
     setSelectedRowKeys([])
+    setIsOpenAddClassModal(false)
   };
   const handleCancel = () => {
     form.resetFields();
@@ -52,7 +56,7 @@ const AddClassModal = () => {
 
   return (
     <Modal
-      title="Login"
+      title="Add Class"
       onCancel={handleCancel}
       open={isOpenAddClassModal}
       footer={null}
@@ -96,6 +100,7 @@ const AddClassModal = () => {
           <Table 
           rowSelection={rowSelection}
           columns={columns}
+          size="small"
           dataSource={listStudent?.map((student)=>({
             ...student,
             key:student.id_Student

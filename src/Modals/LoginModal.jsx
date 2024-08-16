@@ -27,8 +27,6 @@ const LoginModal = () => {
     [UserName]
   );
   const query = useFireStore("users", Condition);
-
-  
   const handleLogin = async () => {
     try {
       await fetch(`${process.env.REACT_APP_URL_SEVER}/api/v1.0/auth/login`, {
@@ -44,7 +42,8 @@ const LoginModal = () => {
           dispatch(AuthReducer.actions.setLogin(true));
           dispatch(LoginReducer.actions.login(data));
           if(query === null || query.length ===0){
-            addDocument("users", data);
+              console.log("vao day")
+              addDocument("users", data)
           }
           setLoading(true);
         });

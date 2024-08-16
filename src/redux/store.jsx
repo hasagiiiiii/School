@@ -10,6 +10,7 @@ import AuthReducer from "./AuthReducer";
 import Calendar from "./SchoolReducer/Calendar";
 import ClassSubjectReducer from "./TeacherReducer/ClassSubjectReducer";
 import ClassSubjectStudent from "./StudentReducer/ClassSubjectStudent";
+import ExcerciseStudentReducer from "./StudentReducer/ExcerciseStudentReducer";
 
 
 const rootReducer = combineReducers({
@@ -22,12 +23,13 @@ const rootReducer = combineReducers({
   Calendar: Calendar.reducer,
   ClassSubjectReducer:ClassSubjectReducer.reducer,
   ClassSubjectStudent : ClassSubjectStudent.reducer,
+  ExcerciseStudentReducer: ExcerciseStudentReducer.reducer
 })
 
 const persistConfig = {
   key:'root',
   storage,
-  whitelist:['LoginReducer', 'Students', 'Auth','FilterClassReducer'],
+  whitelist:['LoginReducer', 'Students','ClassReducer', 'Auth','FilterClassReducer','ClassSubjectReducer','ClassSubjectStudent','ExcerciseStudentReducer'],
 }
 
 

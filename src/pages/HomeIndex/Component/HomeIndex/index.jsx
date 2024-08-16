@@ -13,6 +13,7 @@ const HomeGuest = () => {
   const [listclassSbujectStudent , setClassSubjectStudent] = React.useState([])
   const [idMonhoc, setIdMonHoc] = React.useState(null)
   const dispatch = useDispatch()
+  const arrAvart = [{userName:"T"},{userName:"T"},{userName:"T"},{userName:"T"}]
   React.useEffect(()=>{
     try {
       fetch("http://localhost:5071/api/v1.0/monhoc",{
@@ -60,9 +61,21 @@ const HomeGuest = () => {
     [idMonhoc]
   );
   const chatRoom = useFireStore("chatRooms", Condition);
-  const hanldeFillterChangeClassSubject = (value)=>{
+
+  console.log(chatRoom)
+
+  const hanldeFillterChangeClassSubject =  (value)=>{
     dispatch(ClassReducer.actions.addClass(value))
-    setIdMonHoc(value.id_MonHoc)
+    try {
+      setIdMonHoc(value.id_MonHoc)
+      
+    } catch (error) {
+      console.log(error)
+    }
+  
+    console.log("chatRoom:", chatRoom);
+    console.log("Condition:", Condition);
+
     if(chatRoom === null || chatRoom.length === 0){
       addDocument("chatRooms",value)
     }
@@ -100,9 +113,12 @@ const HomeGuest = () => {
                   <div className="flex mt-5 justify-between">
                     <div className="group-avatar">
                       <Avatar.Group size="small" maxCount={2}>
-                        {item.student.map((user)=>(
-                          <Avatar key={user.id_Student}>{user.fullName?.charAt(0).toUpperCase()}</Avatar>
-                        ))}
+                        {arrAvart.map((user,index)=>{
+                          return(
+                            
+                              <Avatar key={index}>{user.userName}</Avatar>
+                            )
+                        })}
                       </Avatar.Group>
                     </div>
                     <button>heslo</button>

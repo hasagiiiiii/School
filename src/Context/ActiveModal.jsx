@@ -8,6 +8,8 @@ export const ActiveModalProvider = ({ children }) => {
   const [isOpenCalendarModal, setOpenCalendarModal] = React.useState(false);
   const [darkMode, setDarkMode] = React.useState(false);
   const [isOpenRegister, setIsOpenRegister] = React.useState(false);
+  const [isOpenCallVideo, setIsOpenCallVideo] = React.useState(false)
+  const [isOpenJoinCallVideo,setIsOpenJoinCallVideo] = React.useState(false)
   return (
     <ActiveModalContext.Provider
       value={{
@@ -23,6 +25,8 @@ export const ActiveModalProvider = ({ children }) => {
         setOpenCalendarModal,
         isOpenRegister,
         setIsOpenRegister,
+        isOpenCallVideo, setIsOpenCallVideo,
+        isOpenJoinCallVideo,setIsOpenJoinCallVideo
       }}
     >
       {children}

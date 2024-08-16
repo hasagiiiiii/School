@@ -5,9 +5,11 @@ import { ClassRoomListContext } from '../../../Context/ClassRoomListContext'
 import { StyleProvider } from '@ant-design/cssinjs';
 import { IoChatbubbleEllipsesSharp, IoSearch } from 'react-icons/io5';
 import { FaBell } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
 export const ShowClass = () => {
   const [listClass,setListClass] = React.useState([])
   const {columnsViewClass} = React.useContext(ClassRoomListContext)
+  const navigate = useNavigate()
   React.useEffect(()=>{
     FETCH_API.fetchAPIV1GET_Authoriez('class-school',setListClass)
   },[])
