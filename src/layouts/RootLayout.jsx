@@ -2,15 +2,13 @@ import React from "react";
 import { Outlet } from "react-router-dom";
 import HeadeerRootAffterLogin from "../Component/HeaderRootLayout/HeadeerRootAffterLogin";
 import HeaderRootLayout from "../Component/HeaderRootLayout/HeaderRootLayout";
+import { useSelector } from "react-redux";
+import { isLogin } from "../redux/selector";
 const RootLayout = () => {
-  const Loged = window.localStorage.getItem("acces");
-  const [isLogin, setIslogin] = React.useState(Loged);
-  React.useEffect(() => {
-    setIslogin(Loged);
-  }, [Loged]);
+  const Login = useSelector(isLogin)
   return (
     <>
-      {isLogin ? <HeadeerRootAffterLogin /> : <HeaderRootLayout />}
+      {Login ? <HeadeerRootAffterLogin /> : <HeaderRootLayout />}
       <Outlet />
     </>
   );

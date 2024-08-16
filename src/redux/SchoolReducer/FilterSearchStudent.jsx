@@ -3,12 +3,16 @@ import { createSlice } from "@reduxjs/toolkit";
 export default createSlice({
   name: "FilterSearchStudent",
   initialState: {
-    name: "",
-    msv: "",
+    fullName: "",
+    Email: "",
+    type:"All"
   },
   reducers: {
     filterSearchName: (state, action) => {
-      state.name = action.payload;
+      state.fullName = action.payload;
     },
+    onChangeType : (state,action)=>{
+      state.type = action.payload
+    }
   },
 });

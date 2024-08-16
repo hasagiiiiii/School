@@ -1,13 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 export default createSlice({
-  name: "filterClass",
+  name: "excercise",
   initialState: {
-    monhoc: " ",
+    excercise: [],
   },
   reducers: {
-    fillterValue: (state, action) => {
-      state.monhoc = action.payload;
+    addExcercise: (state, action) => {
+      state.excercise = action.payload;
     },
   },
 });

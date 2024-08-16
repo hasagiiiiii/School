@@ -5,13 +5,22 @@ import { Link } from "react-router-dom";
 import { AppContext } from "../../Context/AppContext";
 import Logo from "../../assets/logo.jpg";
 import "./index.scss";
+import { AuthContext } from "../../Context/AuthProvider";
+import { ClassSubject } from "../../redux/TeacherReducer/selectorTeacher";
+import { useDispatch, useSelector } from "react-redux";
+import { resetClassSubjectReducer } from "../../redux/ResetReducer";
 const HeaderCLass = () => {
   const [active, setActive] = React.useState(false);
+  const {Logout} = React.useContext(AuthContext)
   const { setIsOpenFormAddCLass } = React.useContext(AppContext);
   const handleOpenLogin = () => {
     setActive(false);
   };
-  const username = JSON.parse(localStorage.getItem("acces"))?.info.user_Name;
+  const dispatch = useDispatch()
+  const handleResetClassSubject = ()=>{
+    resetClassSubjectReducer(dispatch)
+  }
+  const dataClassSubject = useSelector(ClassSubject)
   return (
     <header className="sticky top-0">
       <div className="header-left ">
@@ -20,7 +29,8 @@ const HeaderCLass = () => {
         </div>
         <div className="logo">
           <img src={Logo} width={45} alt="" />
-          <Link to="/Class">Lớp học</Link>
+          <div><Link onClick={()=>handleResetClassSubject()} className="firstlink" to="/Class">Lớp học</Link></div>
+          {dataClassSubject.name_MonHoc ?  <div>/ <Link className="lastLink" to="">{dataClassSubject.name_MonHoc}</Link></div> : ""}
         </div>
       </div>
       <div className="header-right">
@@ -36,9 +46,10 @@ const HeaderCLass = () => {
             <p onClick={() => setIsOpenFormAddCLass(true)}>Tạo Lớp Học</p>
           </div>
         </div>
-        <Avatar style={{ background: "blue" }}>
-          {username?.charAt(0).toUpperCase()}
+        <Avatar>
+         T
         </Avatar>
+      <p onClick={Logout}>Logout</p>
       </div>
     </header>
   );

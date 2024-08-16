@@ -15,38 +15,91 @@ import AddClassModal from "./Modals/AddClassModal";
 import AuthProvider from "./Context/AuthProvider";
 import ContentDepartment from "./pages/Department/ContentDepartment";
 import Department from "./pages/Department/Department";
+import { ActiveModalProvider } from "./Context/ActiveModal";
+import AddSubjectModal from "./Modals/AddSubjectModal";
+import { Schedule } from "./pages/Class/Component/Schedule";
+import { Loading } from "./Component/Loading";
+import { ShowClass } from "./pages/Department/ShowClass.jsx";
+import { OverView } from "./pages/Department/OverView/index.jsx";
+import HomeIndex from "./pages/HomeIndex/index.jsx";
+import HomeGuest from "./pages/HomeIndex/Component/HomeIndex/index.jsx";
+import Calenda from "./pages/HomeIndex/Component/Calendar/index.jsx";
+import CalendaModal from "./Modals/CalendaModal.jsx";
+import { RegisterModal } from "./Modals/RegisterModal.jsx";
+import OverviewClassSubject from "./pages/Class/Component/ClassSubject/OverviewClassSubject.jsx";
+import News from "./pages/Class/Component/ClassSubject/Component/News.jsx";
+import Chat from "./pages/Class/Component/ClassSubject/Component/Chat.jsx";
+import OverViewClassSubjectStudent from "./pages/HomeIndex/Component/ClassSubjectStudent/Component/OverView/OverViewClassSubjectStudent.jsx"
+import Attendance from "./pages/Class/Component/ClassSubject/Component/AttendanceTeacher/Attendance.jsx";
+import ProfileStudent from "./pages/HomeIndex/Component/ProfileStudent/index.jsx";
+import UserClassubject from "./pages/Class/Component/ClassSubject/Component/UserClassubject/UserClassubject.jsx";
+import Exceries from "./pages/Class/Component/ClassSubject/Component/Excercies/Exceries.jsx";
+import VideoCallContextProvider from "./Context/VideoCallContext.jsx";
+import CallVideoModal from "./Modals/CallVideoModal.jsx";
+import JoinVideoCallModal from "./Modals/JoinVideoCallModal.jsx";
+import SubmitExcercise from "./pages/HomeIndex/Component/ClassSubjectStudent/Component/SubmitExcercise/SubmitExcercise.jsx";
+import LayoutStudent from "./pages/HomeIndex/Component/ClassSubjectStudent/index.jsx";
 const App = () => {
   return (
     <BrowserRouter basename="">
       <AuthProvider>
+        <VideoCallContextProvider>
         <AppProvider>
           <ImgConTextProvider>
             <ContryProvider>
               <CategoriesProvider>
                 <ClassRoomListProvider>
+                  <ActiveModalProvider>
                   <Routes>
                     <Route path="/" element={<RootLayout />}>
                       <Route index element={<Home />} />
                     </Route>
-
                     <Route path="/Class" element={<Class />}>
                       <Route index element={<Table />} />
-                    </Route>
+                      <Route path="/Class/Schedule" element={<Schedule/>} />
+                      <Route path="/Class/:subjectID" element={<OverviewClassSubject/>}>
+                        <Route  index element={<News/>} />
+                        <Route path="/Class/:subjectID/Chat" element={<Chat/>} />
+                        <Route path="/Class/:subjectID/Attendance" element={<Attendance/>} />
+                        <Route path="/Class/:subjectID/Members" element={<UserClassubject/>} />
+                        <Route path="/Class/:subjectID/Quest" element={<Exceries/>} />
 
-                    <Route path="/Department" element={<Department />}>
-                      <Route index element={<ContentDepartment />} />
+                      </Route>
                     </Route>
+                    <Route path="/Department" element={<Department />}>
+                      <Route index element={<OverView/>} />
+                      <Route path="/Department/Accounts" element={<ContentDepartment />} />
+                      <Route path="/Department/AllClass" element={<ShowClass/>} />
+                    </Route>
+                    <Route path="/HomeIndex" element={<HomeIndex/>}>
+                      <Route index element={<HomeGuest/>} />
+                      <Route path="/HomeIndex/Calender" element={<Calenda/>} />
+                      <Route path="/HomeIndex/Profile" element={<ProfileStudent/>}/>
+                      <Route path="/HomeIndex/:subject" element={<LayoutStudent/>}>
+                       <Route index element={<OverViewClassSubjectStudent/>} />
+                       <Route path="/HomeIndex/:subject/BaiTap" element={<SubmitExcercise/>}/> 
+                      </Route>
+                    </Route>
+                    {/* <Route path="/VideoCall" element={<CallVideoModal />} /> */}
                   </Routes>
 
                   {/*  Start Modal */}
                   <LoginModal />
+                  <RegisterModal />
                   <AddClassModal />
+                  <AddSubjectModal/>
+                  <CalendaModal />
+                  <Loading/>
+                  <CallVideoModal />
+                  <JoinVideoCallModal />
                   {/* Finish Modal */}
+                  </ActiveModalProvider>
                 </ClassRoomListProvider>
               </CategoriesProvider>
             </ContryProvider>
           </ImgConTextProvider>
         </AppProvider>
+        </VideoCallContextProvider>
       </AuthProvider>
       {/* Class */}
     </BrowserRouter>

@@ -6,11 +6,13 @@ import { Link } from "react-router-dom";
 import { AppContext } from "../../Context/AppContext";
 import Overlay from "../OverLay";
 import "./index.scss";
+import { ActiveModalContext } from "../../Context/ActiveModal";
 const HeaderRootLayout = () => {
   const [isActive, setIsActive] = React.useState(1);
   const [isDrop, setDrop] = React.useState(false);
-  const { isToggle, hanldeDisableScroll, setOpen } =
+  const { isToggle, hanldeDisableScroll } =
     React.useContext(AppContext);
+  const {setIsOpenLogin,setIsOpenRegister} = React.useContext(ActiveModalContext)
 
   return (
     <div className="wrap-header">
@@ -88,10 +90,10 @@ const HeaderRootLayout = () => {
               <input type="text" placeholder="Tìm Kiếm" />
             </div>
           </div>
-          <button onClick={() => setOpen(true)} className="btn-common">
+          <button onClick={() => setIsOpenLogin(true)} className="btn-common mr-3">
             Login
           </button>
-          <button className="btn-common">Sign-Up</button>
+          <button onClick={()=>setIsOpenRegister(true)} className="btn-common">Sign-Up</button>
         </div>
         <button onClick={hanldeDisableScroll} className="drop-downMenu">
           <IoMenu size={30} />

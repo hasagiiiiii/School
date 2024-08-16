@@ -1,19 +1,35 @@
 import { Button, Form, Input, Modal } from "antd";
 import React from "react";
-import { AppContext } from "../Context/AppContext";
 import { useDispatch } from "react-redux";
-import LoginReducer from "../redux/LoginReducer";
 import { useNavigate } from "react-router-dom";
-
+import { AuthContext } from "../Context/AuthProvider";
+import AuthReducer from "../redux/AuthReducer";
+import LoginReducer from "../redux/LoginReducer";
+import { ActiveModalContext } from "../Context/ActiveModal";
+import { addDocument } from "../Firebase/serviceFireStore";
+import useFireStore from "../Firebase/useFireStore";
 const LoginModal = () => {
   const [form] = Form.useForm();
-  const { open, setOpen } = React.useContext(AppContext);
+  const { setLoading } = React.useContext(AuthContext);
+  const { isOpenLogin, setIsOpenLogin } = React.useContext(ActiveModalContext);
+  const [UserName, setUserName] = React.useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+
+  // Condition call fireStore 
+  const Condition = React.useMemo(
+    () => ({
+      fieldName: "user_Name",
+      operator: "==",
+      compareValue: UserName,
+    }),
+    [UserName]
+  );
+  const query = useFireStore("users", Condition);
   const handleLogin = async () => {
     try {
-      await fetch("http://trendyt20231-001-site1.ftempurl.com/api/v1/login", {
+      await fetch(`${process.env.REACT_APP_URL_SEVER}/api/v1.0/auth/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -23,28 +39,31 @@ const LoginModal = () => {
       })
         .then((res) => res.json())
         .then((data) => {
-          document.cookie = `access_token = ${data.access_Token};expires=3000`;
-          window.localStorage.setItem("acces", JSON.stringify(data));
-          window.location.reload();
-          return dispatch(LoginReducer.actions.login(data));
+          dispatch(AuthReducer.actions.setLogin(true));
+          dispatch(LoginReducer.actions.login(data));
+          if(query === null || query.length ===0){
+              console.log("vao day")
+              addDocument("users", data)
+          }
+          setLoading(true);
         });
       navigate("/");
     } catch (err) {
       console.log(err);
     }
     form.resetFields();
-    setOpen(false);
+    setIsOpenLogin(false);
   };
   const handleCancel = () => {
-    setOpen(false);
+    setIsOpenLogin(false);
     form.resetFields();
   };
   return (
     <Modal
       title="Login"
       width={500}
-      open={open}
-      onOk={() => setOpen(false)}
+      open={isOpenLogin}
+      onOk={() => setIsOpenLogin(false)}
       onCancel={handleCancel}
       footer={null}
     >
@@ -59,7 +78,10 @@ const LoginModal = () => {
           rules={[{ required: true, message: "please input your username" }]}
           name="user_Name"
         >
-          <Input placeholder="UserName" />
+          <Input
+            onChange={(e) => setUserName(e.target.value)}
+            placeholder="UserName"
+          />
         </Form.Item>
         <Form.Item
           rules={[{ required: true, message: "please input your username" }]}

@@ -2,7 +2,7 @@ import React from "react";
 import { Tag } from "antd";
 export const ClassRoomListContext = React.createContext();
 const ClassRoomListProvider = ({ children }) => {
-  const columns = [
+  const columnsViewStudent = [         // views student in class
     { title: "NameClass", dataIndex: "NameClass", key: "NameClass" },
     { title: "Teacher", dataIndex: "Teacher", key: "Teacher" },
     { title: "StudentCount", dataIndex: "StudentCount", key: "StudentCount" },
@@ -28,25 +28,50 @@ const ClassRoomListProvider = ({ children }) => {
     },
   ];
 
-  // Start fetch APi Class School
-  // React.useEffect(() => {
-  //   const token = localStorage.getItem("acces");
-  //   fetch(
-  //     "http://trendyt20231-001-site1.ftempurl.com/api/v1/school/user-school",
-  //     {
-  //       method: "GET",
-  //       headers: {
-  //         Authorization: `Bearer ${JSON.parse(token)?.access_Token}`,
-  //       },
-  //     }
-  //   )
-  //     .then((res) => res.json())
-  //     .then((data) => console.log(data))
-  //     .catch((err) => console.log(err));
-  // }, []);
-  // Finsih fetch Api Class School
+
+  const columnsViewClass = [  //views all class
+    { title: "NameClass", dataIndex: "name_ClassSchool", key: "name_ClassSchool" },
+    {
+       title: "Teacher",
+        dataIndex: "chu_nhiem",
+         key: "chu_nhiem",
+         render: (_,{chu_nhiem})=>{
+            return (<p>{chu_nhiem?.fullName}</p>)
+         }
+      },
+    { title: "StudentCount", dataIndex: "count_student", key: "count_student",render:(_,{count_student})=>(<div className="ml-10">{count_student}</div>) },
+    {
+      title: "Trạng Thái",
+      dataIndex: "tags", 
+      key: "tags",
+      render: (_, { tags }) => {
+          if(tags==="active"){
+            return (
+              <Tag color="green" key={tags.toUpperCase()}>
+                   {tags}
+                 </Tag>
+            )
+          }
+        if(tags==="delete"){
+          return (
+            <Tag color="volcano" key={tags.toUpperCase()}>
+                 {tags}
+               </Tag>
+          )
+        }
+        if(tags==="done"){
+          return (
+            <Tag color="geekblue" key={tags.toUpperCase()}>
+                 {tags}
+               </Tag>
+          )
+        }
+      },
+    },
+  ];
+
   return (
-    <ClassRoomListContext.Provider value={{ columns }}>
+    <ClassRoomListContext.Provider value={{ columnsViewClass,columnsViewStudent }}>
       {children}
     </ClassRoomListContext.Provider>
   );

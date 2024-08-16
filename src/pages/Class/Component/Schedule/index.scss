@@ -1,0 +1,47 @@
+#schedule th,#schedule td{
+    background-color: #ffffff33;
+    color: #fff;
+    border: 1px solid #000; /* Đường viền */
+    columns: 1;
+    width: 290px;
+}
+#schedule th:nth-child(3),#schedule td:nth-child(3) {
+    width: 278px; /* Kích thước của cột thứ hai */
+}
+#schedule th{
+    text-align: left;
+    
+}
+#schedule thead th{
+    background-color: #55608f;
+    height: 150px;
+}
+#schedule tbody tr:hover{
+    background-color: #ffffff4d;
+}
+#schedule tbody td{
+    position: relative;
+}
+#schedule body td:hover::before{
+    content: "";
+    position: absolute;
+    background-color: #ffffff33;
+    left: 0;
+    right: 0;
+    bottom: -999999999999px;
+    top: -99999999px;
+    z-index: -1;
+}
+#schedule tbody td::after{
+    content: "";
+    position: absolute;
+    left: 105px;
+    right: 0;
+    top: -55px;
+    background-color: #000;
+    z-index: 1;
+    width: 1px; 
+    height:255px;
+    transform: rotate(56deg);
+    
+}
